@@ -15,8 +15,6 @@ services:
         image: php:fpm
         volumes:
             - ./src:/app
-        env_file:
-            - .env
         networks:
             - wmnet
         command:

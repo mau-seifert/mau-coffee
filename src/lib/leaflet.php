@@ -21,10 +21,10 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/cache.php';
 
-define('LEAFLET_COLLECTION',   'pub.leaflet.document');
-define('LEAFLET_PLC_DIR',      'https://plc.directory');
-define('BSKY_API_BASE',        $_ENV['BSKY_API_HOST'] ?? 'https://public.api.bsky.app');
-define('LEAFLET_FEED_TTL',     (int)($_ENV['LEAFLET_CACHE_TTL'] ?? 600));
+define('LEAFLET_COLLECTION', 'pub.leaflet.document');
+define('LEAFLET_PLC_DIR', 'https://plc.directory');
+define('BSKY_API_BASE', 'https://public.api.bsky.app');
+define('LEAFLET_FEED_TTL', 600);
 define('LEAFLET_IDENTITY_TTL', 86400);
 
 /**

@@ -72,6 +72,27 @@ function showcase_image_mime_from_ext(string $ext): string
     };
 }
 
+if (!function_exists('showcase_use_x_accel_redirect')) {
+    function showcase_use_x_accel_redirect(): bool
+    {
+        return false;
+    }
+}
+
+if (!function_exists('showcase_x_accel_internal_prefix')) {
+    function showcase_x_accel_internal_prefix(): string
+    {
+        return '';
+    }
+}
+
+if (!function_exists('showcase_use_x_sendfile')) {
+    function showcase_use_x_sendfile(): bool
+    {
+        return false;
+    }
+}
+
 function showcase_stream_file(string $path, string $mimeType, ?string $cacheStatus = null): void
 {
     if ($cacheStatus !== null) {
@@ -84,11 +105,12 @@ function showcase_stream_file(string $path, string $mimeType, ?string $cacheStat
         header('Content-Length: ' . $len);
     }
 
-    $useXAccel = !empty($_ENV['USE_X_ACCEL_REDIRECT']) && !empty($_ENV['X_ACCEL_INTERNAL_PREFIX']);
-    $useXSendfile = !empty($_ENV['USE_X_SENDFILE']);
+    $useXAccel = showcase_use_x_accel_redirect();
+    $useXSendfile = showcase_use_x_sendfile();
 
     if ($useXAccel) {
-        $internal = rtrim($_ENV['X_ACCEL_INTERNAL_PREFIX'], '/') . '/' . basename($path);
+        $internalPrefix = showcase_x_accel_internal_prefix();
+        $internal = rtrim($internalPrefix, '/') . '/' . basename($path);
         header('X-Accel-Redirect: ' . $internal);
         return;
     }
