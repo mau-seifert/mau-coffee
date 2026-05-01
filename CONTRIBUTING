@@ -1,0 +1,31 @@
+# Contributing to mau-coffee
+
+Thank you for considering contributing! This file gives a quick, practical guide to reporting issues and submitting changes.
+
+## Ways to contribute
+- Report bugs or suggest features via Issues or email (bug@mau.coffee).
+- Open a Pull Request (PR) for code, docs, or other improvements.
+- Fix typos or improve documentation directly via PRs. :)
+
+## Reporting issues
+- Provide a short summary and steps to reproduce. Don't overthink it, just share what you see.
+- Include expected vs actual behavior and relevant screenshots or logs, if possible.
+
+## Pull request guidelines
+- Fork the repo and create a feature branch: `git checkout -b my-change`. (Like usual)
+- Keep PRs small and focused. Reference the related issue if available.
+- Describe what you changed and why in the PR description. (Helps me understand or learn from your change!)
+
+## Coding style
+- Keep changes simple and consistent with existing PHP and file structure.
+- Follow existing indentation and naming conventions. (No need to be perfect, just try to match the style.)
+
+## Testing
+- Verify locally by running the site in `docker-compose` and checking affected pages.
+- If you change CSS, run `npm run build:css` or `npm run watch:css` during development. Try as much as possible to do it via tailwindcss.
+
+## Commit messages
+- Use short, descriptive commit messages (imperative tense). Also don't worry here, your contribution is more important, especially on side projects like that.
+
+## Licensing
+By contributing you agree that your contributions will be licensed under the project's MIT License (see `LICENCE`). Don't forget to include yourself in the copyright notice if you want to be credited. :)
