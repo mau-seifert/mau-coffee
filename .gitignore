@@ -1,0 +1,10 @@
+.env
+vendor/
+.vscode/
+.idea/
+node_modules/
+*.min.css
+*.log
+src/cache/
+.DS_Store
+.htaccess

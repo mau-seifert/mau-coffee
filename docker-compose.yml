@@ -1,0 +1,35 @@
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - 8080:80
+        volumes:
+            - ./src:/app
+            - ./default.conf:/etc/nginx/conf.d/default.conf
+        links:
+            - php
+        networks:
+            - wmnet
+
+    php:
+        image: php:fpm
+        volumes:
+            - ./src:/app
+        env_file:
+            - .env
+        networks:
+            - wmnet
+        command:
+            - /bin/sh
+            - -c
+            - |
+                apt-get update -q && apt-get install -y --no-install-recommends \
+                    libwebp-dev libpng-dev libjpeg62-turbo-dev libavif-dev libcurl4-openssl-dev
+                docker-php-ext-configure gd --with-webp --with-jpeg --with-avif
+                docker-php-ext-install gd mbstring exif curl
+                pecl install apcu && docker-php-ext-enable apcu
+                php-fpm
+
+
+networks:
+    wmnet:
