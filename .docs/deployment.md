@@ -8,10 +8,10 @@
 
 ## Modifying the existing deployment
 
-After modifying the deployment script, ensure the `deploy` user can write to that directory:
+After modifying the deployment script, ensure the deploy-user can write to that directory:
 
 ```bash
-sudo chown deploy:www-data /var/www/domain 
+sudo chown >>deploy-user<<:www-data /var/www/domain 
 sudo chmod 755 /var/www/domain
 ```
 
@@ -37,3 +37,10 @@ Expected response: `Deploy triggered` and HTTP status `202`.
 
 - **`sudo: no tty present and no askpass program specified`**  
   This means the `sudo` command is prompting for a password, which should not happen. Double‑check the sudoers file to ensure it allows `www-data` to run the deploy script without a password.
+
+- **Changes to `deploy.sh`?**  
+  Ensure you fix the permissions and ownership of the script if needed, and verify that the webhook is pointing to the correct script location.
+  ```bash
+    sudo chown >>deploy-user<<:www-data /path/to/deploy.sh
+    sudo chmod 750 /path/to/deploy.sh
+  ```
