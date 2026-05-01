@@ -40,7 +40,7 @@ function showcase_home_thumbnail_or_original(string $filename): string
 function showcase_image_basename_or_empty(string $filename): string
 {
     $basename = basename(rawurldecode($filename));
-    if (!preg_match('/\.(jpe?g|png|webp|gif)$/i', $basename)) {
+    if (!preg_match('/\.(jpe?g)$/i', $basename)) {
         return '';
     }
 
@@ -64,12 +64,7 @@ function showcase_image_real_path(string $basename): string
 
 function showcase_image_mime_from_ext(string $ext): string
 {
-    return match ($ext) {
-        'png' => 'image/png',
-        'gif' => 'image/gif',
-        'webp' => 'image/webp',
-        default => 'image/jpeg',
-    };
+    return 'image/jpeg';
 }
 
 if (!function_exists('showcase_use_x_accel_redirect')) {
@@ -145,6 +140,7 @@ function get_showcase_image_filenames(): array
         return [];
     }
 
+    /** @var array<string, array<int, string>> */
     static $requestCache = [];
     if (isset($requestCache[$showcaseDir])) {
         return $requestCache[$showcaseDir];
@@ -153,7 +149,8 @@ function get_showcase_image_filenames(): array
     $files = array_filter(
         scandir($showcaseDir) ?: [],
         static fn($f) => is_file($showcaseDir . DIRECTORY_SEPARATOR . $f)
-            && in_array(strtolower(pathinfo($f, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'webp', 'gif'], true)
+            && in_array(strtolower(pathinfo($f, PATHINFO_EXTENSION)), ['jpg', 'jpeg'], true)
+            && !preg_match('/_thumbnail\.jpe?g$/i', $f)
     );
     $files = array_values($files);
     sort($files);

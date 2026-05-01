@@ -12,7 +12,12 @@ if ($previewCount > 0) {
 
     for ($i = 0; $i < $previewCount; $i++) {
         $idx = ($start + ($i * $step)) % $totalImages;
-        $previewImages[] = $images[$idx];
+        $orig = $images[$idx];
+        $thumb = showcase_home_thumbnail_or_original($orig);
+        if ($thumb === $orig) {
+            continue;
+        }
+        $previewImages[] = $thumb;
     }
 }
 ?>
