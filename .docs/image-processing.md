@@ -1,4 +1,3 @@
-```markdown
 # Image Processing for Showcase
 
 The `image-processing.sh` script automatically compresses and resizes images placed in `/var/www/mau.coffee/public/showcase/`.

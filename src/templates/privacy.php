@@ -1,4 +1,4 @@
-<?php $title = 'Privacy Policy' ?>
+<?php $title = 'Privacy Policy - Notes by mau' ?>
 
 <article class="space-y-4">
     <header class="space-y-2">

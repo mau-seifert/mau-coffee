@@ -1,5 +1,5 @@
 <?php
-$title = 'Home';
+$title = 'Notes by mau';
 
 $images = get_showcase_image_filenames();
 $previewImages = [];

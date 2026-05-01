@@ -1,5 +1,5 @@
 <?php
-$title = 'Showcase';
+$title = 'Showcase - Notes by mau';
 
 $imageNames = get_showcase_image_filenames();
 

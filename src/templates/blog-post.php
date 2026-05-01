@@ -1,5 +1,5 @@
 <?php
-$title = (string)($post['title'] ?? 'Post');
+$title = (string)($post['title'] ?? 'Post') . ' - Notes by mau';
 $ts = strtotime((string)($post['created_at'] ?? ''));
 $dateValue = $ts ? date('Y-m-d', $ts) : '';
 $dateLabel = $ts ? date('F j, Y', $ts) : '';
