@@ -13,7 +13,7 @@ I think I also did accidental double-exposures, opening the back midway and jamm
 
 During COVID, I met a new friend who knew about film photography and I asked her what to do with my Canon AE-1.
 
-![Me with my old Canon AE-1 camera pretending to take a photo.](/posts/revival-of-an-old-passion.md/image-0.jpg)
+![Me with my old Canon AE-1 camera pretending to take a photo.](/posts/revival-of-an-old-passion/image-0.jpg)
 
 So I gave that friend my camera to inspect, and she actually brought it to a repair shop to restore it. It made sense for it to stay in her hands. She showed me all the things you could do with it.
 
@@ -21,4 +21,4 @@ After the COVID lockdowns were mostly over and everything normalized again, I go
 
 Around 2024, my mom found some old cameras from the GDR (East Germany). I restored them myself as much as I could, but they were all in rough shape. Like really bad. So sadly, to this day I’ve never taken photos with them.
 
-Today I got mail - a new Canon AE-1, fully restored, refurbished and like “brand new”. I bought a new one from a shop[ in Munich, an](https://sniggiscameras.de/)d after some lessons from my friend who helped me, I feel ready to take photos with it again.
+Today I got mail - a new Canon AE-1, fully restored, refurbished and like “brand new”. I bought a new one from a [shop in Munich](https://sniggiscameras.de/), and after some lessons from my friend who helped me, I feel ready to take photos with it again.
