@@ -1,5 +1,59 @@
 <?php
-require_once __DIR__ . '/leaflet.php';
+
+/**
+ * Local Markdown post reader.
+ *
+ * Reads posts from src/content/posts/*.md (YAML frontmatter + Markdown body).
+ * The filename (without .md) becomes the slug and URL path component.
+ */
+
+define('POSTS_CONTENT_DIR', __DIR__ . '/../content/posts');
+
+/**
+ * Parse a Markdown file with YAML frontmatter into a post array.
+ *
+ * @return array{id:int,slug:string,title:string,summary:string,body:string,published:int,created_at:string,updated_at:string}|null
+ */
+function parse_post_file(string $filePath): ?array
+{
+    $raw = @file_get_contents($filePath);
+    if ($raw === false) {
+        return null;
+    }
+
+    $raw = str_replace(["\r\n", "\r"], "\n", $raw);
+
+    if (!str_starts_with($raw, "---\n")) {
+        return null;
+    }
+    $endPos = strpos($raw, "\n---\n", 4);
+    if ($endPos === false) {
+        return null;
+    }
+
+    $frontmatter = substr($raw, 4, $endPos - 4);
+    $body = ltrim(substr($raw, $endPos + 5));
+
+    $meta = [];
+    foreach (explode("\n", $frontmatter) as $line) {
+        if (preg_match('/^(\w+):\s*"?(.+?)"?\s*$/', $line, $m)) {
+            $meta[$m[1]] = $m[2];
+        }
+    }
+
+    $slug = pathinfo($filePath, PATHINFO_FILENAME);
+
+    return [
+        'id'         => abs(crc32($slug)),
+        'slug'       => $slug,
+        'title'      => $meta['title'] ?? $slug,
+        'summary'    => $meta['summary'] ?? '',
+        'body'       => $body,
+        'published'  => 1,
+        'created_at' => $meta['created_at'] ?? '',
+        'updated_at' => $meta['updated_at'] ?? $meta['created_at'] ?? '',
+    ];
+}
 
 /**
  * Return an array of published posts ordered by newest first.
@@ -8,7 +62,34 @@ require_once __DIR__ . '/leaflet.php';
  */
 function get_published_posts(): array
 {
-    return leaflet_get_all_posts();
+    static $posts = null;
+    if ($posts !== null) {
+        return $posts;
+    }
+
+    $dir = POSTS_CONTENT_DIR;
+    if (!is_dir($dir)) {
+        $posts = [];
+        return $posts;
+    }
+
+    $files = glob($dir . '/*.md');
+    if ($files === false || empty($files)) {
+        $posts = [];
+        return $posts;
+    }
+
+    $posts = [];
+    foreach ($files as $file) {
+        $post = parse_post_file($file);
+        if ($post !== null) {
+            $posts[] = $post;
+        }
+    }
+
+    usort($posts, static fn($a, $b) => strcmp($b['created_at'], $a['created_at']));
+
+    return $posts;
 }
 
 /**
@@ -16,7 +97,12 @@ function get_published_posts(): array
  */
 function get_published_post_by_slug(string $slug): ?array
 {
-    return leaflet_get_post_by_slug($slug);
+    $slug = basename($slug);
+    $file = POSTS_CONTENT_DIR . '/' . $slug . '.md';
+    if (!is_file($file)) {
+        return null;
+    }
+    return parse_post_file($file);
 }
 
 /**
