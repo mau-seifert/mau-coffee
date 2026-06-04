@@ -32,7 +32,7 @@ if ($isShowcase) {
     }
 }
 
-$ogImageUrl = $origin . '/og-image.svg?' . http_build_query($ogImageParams, '', '&', PHP_QUERY_RFC3986);
+$ogImageUrl = $origin . '/og-image.png?' . http_build_query($ogImageParams, '', '&', PHP_QUERY_RFC3986);
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -49,7 +49,8 @@ $ogImageUrl = $origin . '/og-image.svg?' . http_build_query($ogImageParams, '', 
     <meta property="og:description" content="<?= htmlspecialchars($shortOgDescription, ENT_QUOTES, 'UTF-8') ?>">
     <meta property="og:url" content="<?= htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8') ?>">
     <meta property="og:image" content="<?= htmlspecialchars($ogImageUrl, ENT_QUOTES, 'UTF-8') ?>">
-    <meta property="og:image:type" content="image/svg+xml">
+    <meta property="og:image:secure_url" content="<?= htmlspecialchars($ogImageUrl, ENT_QUOTES, 'UTF-8') ?>">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">

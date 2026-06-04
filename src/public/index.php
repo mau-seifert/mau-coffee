@@ -10,7 +10,7 @@ if ($route === 'sitemap.xml' || $route === 'sitemap') {
     serve_sitemap();
 }
 
-if ($route === 'og-image.svg' || $route === 'og-image') {
+if ($route === 'og-image.png' || $route === 'og-image.svg' || $route === 'og-image') {
     serve_open_graph_image();
 }
 

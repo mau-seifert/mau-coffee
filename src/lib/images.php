@@ -95,9 +95,9 @@ function og_truncate_text(string $text, int $maxLength): string
     return rtrim(substr($text, 0, $maxLength - 3)) . '...';
 }
 
-function og_svg_text(string $text): string
+function og_png_fallback_path(): string
 {
-    return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    return __DIR__ . '/../public/manifest/web-app-manifest-512x512.png';
 }
 
 function og_cache_dir(): string
@@ -105,14 +105,15 @@ function og_cache_dir(): string
     return __DIR__ . '/../cache/og';
 }
 
-function og_send_svg(string $etag, int $mtime, string $svg = '', string $file = ''): void
+function og_send_png_file(string $path, string $etag): void
 {
-    header('Content-Type: image/svg+xml; charset=utf-8');
+    $mtime = (int) (filemtime($path) ?: time());
+    header('Content-Type: image/png');
     header('Cache-Control: public, max-age=21600');
     header('ETag: ' . $etag);
     header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $mtime) . ' GMT');
 
-    $size = $file !== '' ? filesize($file) : false;
+    $size = filesize($path);
     if ($size !== false) {
         header('Content-Length: ' . $size);
     }
@@ -124,12 +125,99 @@ function og_send_svg(string $etag, int $mtime, string $svg = '', string $file = 
         exit;
     }
 
-    if ($file !== '') {
-        readfile($file);
-    } else {
-        echo $svg;
-    }
+    readfile($path);
     exit;
+}
+
+function og_send_png($image, string $etag, int $mtime): void
+{
+    header('Content-Type: image/png');
+    header('Cache-Control: public, max-age=21600');
+    header('ETag: ' . $etag);
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $mtime) . ' GMT');
+
+    $ifNoneMatch = $_SERVER['HTTP_IF_NONE_MATCH'] ?? '';
+    $ifModSince = $_SERVER['HTTP_IF_MODIFIED_SINCE'] ?? '';
+    if ($ifNoneMatch === $etag || ($ifModSince && strtotime($ifModSince) >= $mtime)) {
+        http_response_code(304);
+        exit;
+    }
+
+    imagepng($image);
+    exit;
+}
+
+function og_font_path(): string
+{
+    static $font = null;
+    if ($font !== null) {
+        return $font;
+    }
+
+    $candidates = [
+        '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
+        '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf',
+        '/System/Library/Fonts/Supplemental/Arial.ttf',
+        '/Library/Fonts/Arial.ttf',
+    ];
+
+    foreach ($candidates as $candidate) {
+        if (is_readable($candidate)) {
+            $font = $candidate;
+            return $font;
+        }
+    }
+
+    $font = '';
+    return $font;
+}
+
+function og_draw_text($image, string $text, int $x, int $y, int $size, int $color, ?int $shadow = null): void
+{
+    $font = og_font_path();
+    if ($font !== '' && function_exists('imagettftext')) {
+        if ($shadow !== null) {
+            imagettftext($image, $size, 0, $x + 4, $y + 5, $shadow, $font, $text);
+        }
+        imagettftext($image, $size, 0, $x, $y, $color, $font, $text);
+        return;
+    }
+
+    $fontNumber = 5;
+    if ($shadow !== null) {
+        imagestring($image, $fontNumber, $x + 2, $y + 2, $text, $shadow);
+    }
+    imagestring($image, $fontNumber, $x, $y, $text, $color);
+}
+
+function og_copy_cover_jpeg($target, string $path): bool
+{
+    $source = @imagecreatefromjpeg($path);
+    if ($source === false) {
+        return false;
+    }
+
+    $sourceWidth = imagesx($source);
+    $sourceHeight = imagesy($source);
+    $targetWidth = imagesx($target);
+    $targetHeight = imagesy($target);
+    $sourceRatio = $sourceWidth / max(1, $sourceHeight);
+    $targetRatio = $targetWidth / max(1, $targetHeight);
+
+    if ($sourceRatio > $targetRatio) {
+        $cropHeight = $sourceHeight;
+        $cropWidth = (int) round($sourceHeight * $targetRatio);
+        $cropX = (int) floor(($sourceWidth - $cropWidth) / 2);
+        $cropY = 0;
+    } else {
+        $cropWidth = $sourceWidth;
+        $cropHeight = (int) round($sourceWidth / $targetRatio);
+        $cropX = 0;
+        $cropY = (int) floor(($sourceHeight - $cropHeight) / 2);
+    }
+
+    imagecopyresampled($target, $source, 0, 0, $cropX, $cropY, $targetWidth, $targetHeight, $cropWidth, $cropHeight);
+    return true;
 }
 
 /**
@@ -142,7 +230,7 @@ function serve_open_graph_image(): void
     $description = og_truncate_text((string) ($_GET['description'] ?? 'Make yourself at home, pour a cup, and linger for a moment.'), 72);
 
     $imagePath = '';
-    $imageCachePart = '';
+    $cachePart = $type . '|' . $title . '|' . $description;
     if ($type === 'showcase') {
         $title = 'Photos';
         $description = 'A selection of photos taken with a Canon AE-1 film camera.';
@@ -150,88 +238,54 @@ function serve_open_graph_image(): void
         $imageName = showcase_home_thumbnail_or_original((string) ($_GET['image'] ?? ''));
         $imagePath = $imageName !== '' ? showcase_image_real_path($imageName) : '';
         if ($imagePath !== '') {
-            $imageCachePart = $imageName . '|' . (int) (filemtime($imagePath) ?: 0) . '|' . (int) (filesize($imagePath) ?: 0);
+            $cachePart = 'showcase|' . $imageName . '|' . (int) (filemtime($imagePath) ?: 0) . '|' . (int) (filesize($imagePath) ?: 0);
         }
     }
 
-    $cacheDir = og_cache_dir();
-    $cacheFile = '';
-    $etag = '"' . sha1('og-svg-v2|' . $type . '|' . $title . '|' . $description . '|' . $imageCachePart) . '"';
-    if ($type === 'showcase' && $imagePath !== '') {
-        $cacheKey = sha1('og-svg-v2|showcase|' . $imageCachePart);
-        $cacheFile = $cacheDir . '/' . $cacheKey . '.svg';
-        $etag = '"' . $cacheKey . '"';
-
-        if (is_file($cacheFile)) {
-            og_send_svg($etag, (int) (filemtime($cacheFile) ?: time()), '', $cacheFile);
-        }
+    $fallback = og_png_fallback_path();
+    $etag = '"' . sha1('og-png-v1|' . $cachePart) . '"';
+    if (!function_exists('imagecreatetruecolor') || !function_exists('imagepng')) {
+        og_send_png_file($fallback, $etag);
     }
 
-    $safeTitle = og_svg_text($title);
-    $safeDescription = og_svg_text($description);
-    $imageBytes = $imagePath !== '' ? @file_get_contents($imagePath) : false;
-    $safeImage = $imageBytes !== false ? og_svg_text('data:image/jpeg;base64,' . base64_encode($imageBytes)) : '';
-
-    if ($type === 'showcase' && $safeImage !== '') {
-        $svg = <<<SVG
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="{$safeTitle}">
-  <defs>
-    <filter id="text-shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#140f0b" flood-opacity="0.72"/>
-    </filter>
-    <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#000" stop-opacity="0.04"/>
-      <stop offset="1" stop-color="#000" stop-opacity="0.66"/>
-    </linearGradient>
-  </defs>
-  <rect width="1200" height="630" fill="#261d16"/>
-  <image href="{$safeImage}" width="1200" height="630" preserveAspectRatio="xMidYMid slice"/>
-  <rect width="1200" height="630" fill="url(#shade)"/>
-  <g filter="url(#text-shadow)" font-family="Sora, Arial, sans-serif" fill="#fff">
-    <text x="76" y="488" font-size="112" font-weight="700" letter-spacing="-4">{$safeTitle}</text>
-    <text x="82" y="548" font-size="30" font-weight="500" opacity="0.9">{$safeDescription}</text>
-  </g>
-</svg>
-SVG;
-        if (!is_dir($cacheDir)) {
-            @mkdir($cacheDir, 0755, true);
-        }
-        if ($cacheFile !== '') {
-            @file_put_contents($cacheFile, $svg);
-        }
-        $mtime = $cacheFile !== '' && is_file($cacheFile) ? (int) (filemtime($cacheFile) ?: time()) : time();
-        og_send_svg($etag, $mtime, $svg);
+    $cacheFile = $type === 'showcase' && $imagePath !== '' ? og_cache_dir() . '/' . trim($etag, '"') . '.png' : '';
+    if ($cacheFile !== '' && is_file($cacheFile)) {
+        og_send_png_file($cacheFile, $etag);
     }
 
-    $svg = <<<SVG
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="{$safeTitle}">
-  <defs>
-    <radialGradient id="warm-a" cx="14%" cy="20%" r="58%">
-      <stop offset="0" stop-color="#fff8ec"/>
-      <stop offset="1" stop-color="#f3f1f1" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="warm-b" cx="88%" cy="8%" r="46%">
-      <stop offset="0" stop-color="#d9c7ad" stop-opacity="0.55"/>
-      <stop offset="1" stop-color="#f3f1f1" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#261d16" flood-opacity="0.12"/>
-    </filter>
-  </defs>
-  <rect width="1200" height="630" fill="#f3f1f1"/>
-  <rect width="1200" height="630" fill="url(#warm-a)"/>
-  <rect width="1200" height="630" fill="url(#warm-b)"/>
-  <circle cx="1056" cy="134" r="178" fill="#261d16" opacity="0.055"/>
-  <circle cx="1012" cy="160" r="94" fill="none" stroke="#261d16" stroke-width="2" opacity="0.14"/>
-  <path d="M72 95 C210 54 342 98 452 62 C560 27 656 48 742 82" fill="none" stroke="#261d16" stroke-width="3" opacity="0.14"/>
-  <g font-family="Sora, Arial, sans-serif" fill="#261d16" filter="url(#soft-shadow)">
-    <text x="76" y="440" font-size="82" font-weight="700" letter-spacing="-3">{$safeTitle}</text>
-    <text x="82" y="504" font-size="30" font-weight="500" opacity="0.74">{$safeDescription}</text>
-  </g>
-  <text x="82" y="558" font-family="Sora, Arial, sans-serif" font-size="22" font-weight="600" fill="#261d16" opacity="0.48">mau.coffee</text>
-</svg>
-SVG;
-    og_send_svg($etag, time(), $svg);
+    $image = imagecreatetruecolor(1200, 630);
+    if ($image === false) {
+        og_send_png_file($fallback, $etag);
+    }
+
+    $taupe100 = imagecolorallocate($image, 243, 241, 241);
+    $taupe900 = imagecolorallocate($image, 38, 29, 22);
+    $muted = imagecolorallocate($image, 108, 98, 90);
+    $white = imagecolorallocate($image, 255, 255, 255);
+    $shadow = imagecolorallocatealpha($image, 20, 15, 11, 32);
+
+    if ($type === 'showcase' && $imagePath !== '' && og_copy_cover_jpeg($image, $imagePath)) {
+        imagefilledrectangle($image, 0, 410, 1200, 630, imagecolorallocatealpha($image, 0, 0, 0, 58));
+        og_draw_text($image, 'Photos', 76, 500, 82, $white, $shadow);
+        og_draw_text($image, $description, 82, 552, 24, $white, $shadow);
+    } else {
+        imagefilledrectangle($image, 0, 0, 1200, 630, $taupe100);
+        imagefilledellipse($image, 1056, 134, 356, 356, imagecolorallocate($image, 232, 225, 216));
+        imagearc($image, 1012, 160, 188, 188, 0, 360, imagecolorallocate($image, 211, 198, 180));
+        imageline($image, 72, 95, 742, 82, imagecolorallocate($image, 211, 198, 180));
+        og_draw_text($image, $title, 76, 440, 58, $taupe900);
+        og_draw_text($image, $description, 82, 504, 24, $muted);
+        og_draw_text($image, 'mau.coffee', 82, 558, 17, $muted);
+    }
+
+    if ($cacheFile !== '' && !is_dir(og_cache_dir())) {
+        @mkdir(og_cache_dir(), 0755, true);
+    }
+    if ($cacheFile !== '') {
+        @imagepng($image, $cacheFile);
+    }
+    $mtime = $cacheFile !== '' && is_file($cacheFile) ? (int) (filemtime($cacheFile) ?: time()) : time();
+    og_send_png($image, $etag, $mtime);
 }
 
 if (!function_exists('showcase_use_x_accel_redirect')) {
