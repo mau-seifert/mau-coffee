@@ -1,7 +1,7 @@
 <?php
 $title = 'Showcase - Notes by mau';
 $metaTitle = 'Photos';
-$showcaseDescription = 'A selection of photos taken with a Canon AE-1 film camera.';
+$showcaseDescription = 'A selection of photos taken with a Canon AE-1 film camera';
 $metaDescription = $showcaseDescription;
 
 $imageNames = get_showcase_image_filenames();

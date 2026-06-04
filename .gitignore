@@ -8,3 +8,4 @@ node_modules/
 src/cache/
 .DS_Store
 .htaccess
+*.ttf
