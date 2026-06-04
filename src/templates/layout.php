@@ -7,6 +7,12 @@
     <title><?= $title ?? 'Portfolio' ?></title>
     <link rel="stylesheet" href="/fonts.php">
     <link rel="stylesheet" href="/styles.min.css">
+    <link rel="icon" type="image/png" href="/manifest/favicon-96x96.png?v=20260604" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/manifest/favicon.svg?v=20260604" />
+    <link rel="shortcut icon" href="/manifest/favicon.ico?v=20260604" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/manifest/apple-touch-icon.png?v=20260604" />
+    <meta name="apple-mobile-web-app-title" content="Mau" />
+    <link rel="manifest" href="/manifest/site.webmanifest?v=20260604" />
 </head>
 
 <?php
