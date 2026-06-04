@@ -10,6 +10,10 @@ if ($route === 'sitemap.xml' || $route === 'sitemap') {
     serve_sitemap();
 }
 
+if ($route === 'og-image.svg' || $route === 'og-image') {
+    serve_open_graph_image();
+}
+
 if (str_starts_with($route, 'img/showcase/')) {
     serve_showcase_image(substr($route, strlen('img/showcase/')));
 }

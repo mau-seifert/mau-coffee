@@ -1,4 +1,8 @@
-<?php $title = 'Privacy Policy - Notes by mau' ?>
+<?php
+$title = 'Privacy Policy - Notes by mau';
+$metaTitle = 'Privacy Policy';
+$metaDescription = 'How this private website handles hosting, server logs, and your rights.';
+?>
 
 <article class="space-y-4">
     <header class="space-y-2">

@@ -1,5 +1,8 @@
 <?php
 $title = 'Notes by mau';
+$metaTitle = 'Notes by mau';
+$homeIntro = 'Make yourself at home, pour a cup, and linger for a moment. You’ll find little notes, snapshots, and half-brewed ideas tucked onto the shelves.';
+$metaDescription = $homeIntro;
 
 $images = get_showcase_image_filenames();
 $previewImages = [];
@@ -25,7 +28,7 @@ if ($previewCount > 0) {
 <section class="space-y-6">
     <div>
         <h1 class="text-3xl tracking-tight sm:text-4xl">Notes by mau</h1>
-        <p class="mt-3 text-sm text-taupe-900/75">Make yourself at home, pour a cup, and linger for a moment. You’ll find little notes, snapshots, and half-brewed ideas tucked onto the shelves.</p>
+        <p class="mt-3 text-sm text-taupe-900/75"><?= htmlspecialchars($homeIntro, ENT_QUOTES, 'UTF-8') ?></p>
     </div>
 
     <div>

@@ -1,10 +1,61 @@
+<?php
+$currentRoute = trim($_GET['route'] ?? '', '/');
+$isHome = $currentRoute === '';
+$isBlog = $currentRoute === 'blog' || str_starts_with($currentRoute, 'blog/');
+$isShowcase = $currentRoute === 'showcase';
+$isPrivacy = $currentRoute === 'privacy';
+
+$siteDescription = 'Make yourself at home, pour a cup, and linger for a moment.';
+$pageTitle = (string) ($title ?? 'Notes by mau');
+$pageMetaTitle = (string) ($metaTitle ?? $pageTitle);
+$pageMetaDescription = (string) ($metaDescription ?? $siteDescription);
+
+$shortOgTitle = function_exists('og_truncate_text') ? og_truncate_text($pageMetaTitle, 32) : $pageMetaTitle;
+$shortOgDescription = function_exists('og_truncate_text') ? og_truncate_text($pageMetaDescription, 72) : $pageMetaDescription;
+
+$origin = 'https://mau.coffee';
+$canonicalPath = $currentRoute === '' ? '/' : '/' . $currentRoute;
+$canonicalUrl = $origin . $canonicalPath;
+
+$ogImageParams = [
+    'type' => $isShowcase ? 'showcase' : 'page',
+    'title' => $shortOgTitle,
+    'description' => $shortOgDescription,
+];
+
+if ($isShowcase) {
+    $images = get_showcase_image_filenames();
+    $totalImages = count($images);
+    if ($totalImages > 0) {
+        $timeBucket = (int) floor(time() / 21600);
+        $ogImageParams['image'] = $images[$timeBucket % $totalImages];
+    }
+}
+
+$ogImageUrl = $origin . '/og-image.svg?' . http_build_query($ogImageParams, '', '&', PHP_QUERY_RFC3986);
+?>
 <!DOCTYPE html>
 <html lang="de">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?? 'Portfolio' ?></title>
+    <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
+    <meta name="description" content="<?= htmlspecialchars($shortOgDescription, ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="canonical" href="<?= htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8') ?>">
+    <meta property="og:type" content="<?= isset($post) && is_array($post) ? 'article' : 'website' ?>">
+    <meta property="og:site_name" content="Notes by mau">
+    <meta property="og:title" content="<?= htmlspecialchars($shortOgTitle, ENT_QUOTES, 'UTF-8') ?>">
+    <meta property="og:description" content="<?= htmlspecialchars($shortOgDescription, ENT_QUOTES, 'UTF-8') ?>">
+    <meta property="og:url" content="<?= htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8') ?>">
+    <meta property="og:image" content="<?= htmlspecialchars($ogImageUrl, ENT_QUOTES, 'UTF-8') ?>">
+    <meta property="og:image:type" content="image/svg+xml">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?= htmlspecialchars($shortOgTitle, ENT_QUOTES, 'UTF-8') ?>">
+    <meta name="twitter:description" content="<?= htmlspecialchars($shortOgDescription, ENT_QUOTES, 'UTF-8') ?>">
+    <meta name="twitter:image" content="<?= htmlspecialchars($ogImageUrl, ENT_QUOTES, 'UTF-8') ?>">
     <link rel="stylesheet" href="/fonts.php">
     <link rel="stylesheet" href="/styles.min.css">
     <link rel="icon" type="image/png" href="/manifest/favicon-96x96.png?v=20260604" sizes="96x96" />
@@ -14,14 +65,6 @@
     <meta name="apple-mobile-web-app-title" content="Mau" />
     <link rel="manifest" href="/manifest/site.webmanifest?v=20260604" />
 </head>
-
-<?php
-$currentRoute = trim($_GET['route'] ?? '', '/');
-$isHome = $currentRoute === '';
-$isBlog = $currentRoute === 'blog' || str_starts_with($currentRoute, 'blog/');
-$isShowcase = $currentRoute === 'showcase';
-$isPrivacy = $currentRoute === 'privacy';
-?>
 
 <body class="min-h-screen bg-taupe-100 text-taupe-900">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

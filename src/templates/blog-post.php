@@ -1,5 +1,7 @@
 <?php
 $title = (string)($post['title'] ?? 'Post') . ' - Notes by mau';
+$metaTitle = (string)($post['title'] ?? 'Post');
+$metaDescription = (string)($post['summary'] ?? '');
 $ts = strtotime((string)($post['created_at'] ?? ''));
 $dateValue = $ts ? date('Y-m-d', $ts) : '';
 $dateLabel = $ts ? date('F j, Y', $ts) : '';
