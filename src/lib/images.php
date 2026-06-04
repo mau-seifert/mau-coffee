@@ -258,25 +258,21 @@ function serve_open_graph_image(): void
         og_send_png_file($fallback, $etag);
     }
 
-    $taupe100 = imagecolorallocate($image, 243, 241, 241);
-    $taupe900 = imagecolorallocate($image, 38, 29, 22);
-    $muted = imagecolorallocate($image, 108, 98, 90);
-    $white = imagecolorallocate($image, 255, 255, 255);
-    $shadow = imagecolorallocatealpha($image, 20, 15, 11, 32);
+$taupe100 = imagecolorallocate($image, 243, 241, 241);
+$taupe900 = imagecolorallocate($image, 38, 29, 22);
+$muted = imagecolorallocate($image, 108, 98, 90);
+$white = imagecolorallocate($image, 255, 255, 255);
+$shadow = imagecolorallocatealpha($image, 0, 0, 0, 96);
 
-    if ($type === 'showcase' && $imagePath !== '' && og_copy_cover_jpeg($image, $imagePath)) {
-        imagefilledrectangle($image, 0, 410, 1200, 630, imagecolorallocatealpha($image, 0, 0, 0, 58));
-        og_draw_text($image, 'Photos', 76, 500, 82, $white, $shadow);
-        og_draw_text($image, $description, 82, 552, 24, $white, $shadow);
-    } else {
-        imagefilledrectangle($image, 0, 0, 1200, 630, $taupe100);
-        imagefilledellipse($image, 1056, 134, 356, 356, imagecolorallocate($image, 232, 225, 216));
-        imagearc($image, 1012, 160, 188, 188, 0, 360, imagecolorallocate($image, 211, 198, 180));
-        imageline($image, 72, 95, 742, 82, imagecolorallocate($image, 211, 198, 180));
-        og_draw_text($image, $title, 76, 440, 58, $taupe900);
-        og_draw_text($image, $description, 82, 504, 24, $muted);
-        og_draw_text($image, 'mau.coffee', 82, 558, 17, $muted);
-    }
+if ($type === 'showcase' && $imagePath !== '' && og_copy_cover_jpeg($image, $imagePath)) {
+    og_draw_text($image, 'Photos', 76, 500, 82, $white, $shadow);
+    og_draw_text($image, $description, 82, 552, 24, $white, $shadow);
+} else {
+    imagefilledrectangle($image, 0, 0, 1200, 630, $taupe100);
+    og_draw_text($image, $title, 76, 440, 58, $taupe900);
+    og_draw_text($image, $description, 82, 504, 24, $muted);
+    og_draw_text($image, 'mau.coffee', 82, 558, 17, $muted);
+}
 
     if ($cacheFile !== '' && !is_dir(og_cache_dir())) {
         @mkdir(og_cache_dir(), 0755, true);
