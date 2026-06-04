@@ -2,7 +2,7 @@
 
 ## How it works
 
-1. **Git push to `main`** → Codeberg sends a POST webhook to `https://domain/webhook.php`.
+1. **Git push to `main`** → GitHub sends a POST webhook to `https://domain/webhook.php`.
 2. The PHP script verifies the HMAC‑SHA256 signature (shared secret).
 3. If valid, it runs `deploy.sh` with the specified user.
 
@@ -22,7 +22,7 @@ PAYLOAD='{"ref":"refs/heads/main"}'
 SIGNATURE=$(echo -n "$PAYLOAD" | openssl dgst -sha256 -hmac "secret-here" | cut -d ' ' -f2)
 curl -k -X POST https://domain/webhook.php \
   -H "Content-Type: application/json" \
-  -H "X-Gitea-Signature: sha256=$SIGNATURE" \
+  -H "X-Hub-Signature-256: sha256=$SIGNATURE" \
   -d "$PAYLOAD"
 ```
 Expected response: `Deploy triggered` and HTTP status `202`.
@@ -30,7 +30,7 @@ Expected response: `Deploy triggered` and HTTP status `202`.
 ## Troubleshooting
 
 - **403 Forbidden**  
-  Signature mismatch. Check the secret and the header name. Codeberg uses `X-Gitea-Signature`, not `X-Hub-Signature-256`.
+  Signature mismatch. Check the secret and the header name.
 
 - **Permission denied on `/var/www/domain`**  
   Run `sudo chown >>deploy-user<<:www-data /var/www/domain && sudo chmod 755 /var/www/domain` and retry.

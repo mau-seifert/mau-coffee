@@ -17,7 +17,7 @@ Quick start:
 1. Clone the repository:
 
 ```
-git clone https://codeberg.org/mau-seifert/mau-coffee
+git clone https://github.com/mau-seifert/mau-coffee
 cd mau-coffee
 ```
 
@@ -43,7 +43,7 @@ npm run watch:css    # development watch
 
 ## Documentation
 
-Further documentation and additional notes are available under [.docs](https://codeberg.org/mau-seifert/mau-coffee/tree/main/.docs)
+Further documentation and additional notes are available under [.docs](https://github.com/mau-seifert/mau-coffee/tree/main/.docs)
 
 ## License
 

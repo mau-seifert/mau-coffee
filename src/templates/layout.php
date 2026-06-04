@@ -45,7 +45,7 @@ $isPrivacy = $currentRoute === 'privacy';
                     </nav>
 
                     <footer class="border-t border-taupe-900/20 pt-4 text-xs text-taupe-900/70">
-                        <p class="flex items-center gap-4"><a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a><a href="https://codeberg.org/mau-seifert/mau-coffee" class="text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer">Source</a></p>
+                        <p class="flex items-center gap-4"><a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a><a href="https://github.com/mau-seifert/mau-coffee" class="text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer">Source</a></p>
                     </footer>
                 </div>
             </aside>
@@ -56,7 +56,7 @@ $isPrivacy = $currentRoute === 'privacy';
                 </main>
 
                 <footer class="border-t border-taupe-900/20 py-5 text-xs text-taupe-900/70 lg:hidden">
-                    <p class="flex items-center gap-4"><a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a><a href="https://codeberg.org/mau-seifert/mau-coffee" class="text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer">Source</a></p>
+                    <p class="flex items-center gap-4"><a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a><a href="https://github.com/mau-seifert/mau-coffee" class="text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer">Source</a></p>
                 </footer>
             </div>
         </div>
