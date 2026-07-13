@@ -15,8 +15,8 @@ $webrings = [
     [
         'name' => 'Retronaut',
         'url' => 'https://webring.dinhe.net/',
-        'previous' => 'https://webring.dinhe.net/prev/mau.coffee',
-        'next' => 'https://webring.dinhe.net/next/mau.coffee',
+        'previous' => 'https://webring.dinhe.net/prev/https://mau.coffee/webrings',
+        'next' => 'https://webring.dinhe.net/next/https://mau.coffee/webrings',
         'color' => '#111111',
         'softColor' => 'rgba(17, 17, 17, 0.14)',
     ],
