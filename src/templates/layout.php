@@ -3,6 +3,7 @@ $currentRoute = trim($_GET['route'] ?? '', '/');
 $isHome = $currentRoute === '';
 $isBlog = $currentRoute === 'blog' || str_starts_with($currentRoute, 'blog/');
 $isShowcase = $currentRoute === 'showcase';
+$isWebrings = $currentRoute === 'webrings';
 $isPrivacy = $currentRoute === 'privacy';
 
 $siteDescription = 'Make yourself at home, pour a cup, and linger for a moment.';
@@ -74,10 +75,11 @@ $ogImageUrl = $origin . '/og-image.png?' . http_build_query($ogImageParams, '', 
                 <img src="/banner.gif" alt="Logo" height="31" width="81" class="inline-block">
                 <span class="hidden text-sm font-medium tracking-wide sm:inline">Mau Seifert</span>
             </a>
-            <div class="flex items-center gap-4 text-sm sm:gap-6">
+            <div class="flex items-center gap-3 text-xs sm:gap-5 sm:text-sm">
                 <a href="/" class="underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isHome ? 'font-bold' : '' ?>">Home</a>
                 <a href="/blog" class="underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isBlog ? 'font-bold' : '' ?>">Blog</a>
                 <a href="/showcase" class="underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isShowcase ? 'font-bold' : '' ?>">Photos</a>
+                <a href="/webrings" class="underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isWebrings ? 'font-bold' : '' ?>">Rings</a>
             </div>
         </nav>
 
@@ -92,6 +94,7 @@ $ogImageUrl = $origin . '/og-image.png?' . http_build_query($ogImageParams, '', 
                         <a href="/" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isHome ? 'font-bold' : '' ?>"><?= $isHome ? '• ' : '' ?>Home</a>
                         <a href="/blog" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isBlog ? 'font-bold' : '' ?>"><?= $isBlog ? '• ' : '' ?>Blog</a>
                         <a href="/showcase" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isShowcase ? 'font-bold' : '' ?>"><?= $isShowcase ? '• ' : '' ?>Photos</a>
+                        <a href="/webrings" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isWebrings ? 'font-bold' : '' ?>"><?= $isWebrings ? '• ' : '' ?>Webrings</a>
                     </nav>
 
                     <footer class="border-t border-taupe-900/20 pt-4 text-xs text-taupe-900/70">

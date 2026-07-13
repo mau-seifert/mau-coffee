@@ -88,6 +88,14 @@ function serve_sitemap(): void
         'images' => $showcaseImages,
     ];
 
+    $webringsTpl = realpath(__DIR__ . '/../templates/webrings.php');
+    $webringsLast = $webringsTpl ? filemtime($webringsTpl) : null;
+    $urls[] = [
+        'loc' => $base . '/webrings',
+        'lastmod' => $webringsLast ? gmdate('c', $webringsLast) : null,
+        'images' => [],
+    ];
+
     $privacyTpl = realpath(__DIR__ . '/../templates/privacy.php');
     $privacyLast = $privacyTpl ? filemtime($privacyTpl) : null;
     $urls[] = [
