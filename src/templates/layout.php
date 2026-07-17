@@ -38,6 +38,7 @@ $carbonResult = function_exists('website_carbon_result') ? website_carbon_result
 $carbonLabel = (string) ($carbonResult['label'] ?? 'report');
 $carbonTitle = (string) ($carbonResult['title'] ?? 'Website Carbon report for mau.coffee');
 $carbonValueClass = isset($carbonResult['label']) ? 'whitespace-nowrap opacity-70' : 'whitespace-nowrap';
+$externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="true">↗</span>';
 
 ?>
 <!DOCTYPE html>
@@ -105,11 +106,12 @@ $carbonValueClass = isset($carbonResult['label']) ? 'whitespace-nowrap opacity-7
                     <footer class="border-t border-taupe-900/20 pt-4 text-xs text-taupe-900/70">
                         <p class="flex flex-wrap items-center gap-4">
                             <a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a>
-                            <a href="https://github.com/mau-seifert/mau-coffee" class="text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer">Source</a>
+                            <a href="https://github.com/mau-seifert/mau-coffee" class="inline-flex items-baseline gap-[0.35rem] text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer" aria-label="Source opens an external website"><span>Source</span><?= $externalLinkIcon ?></a>
                             <span>
-                                <a class="inline-flex whitespace-nowrap bg-left-bottom bg-no-repeat [background-image:linear-gradient(currentColor,currentColor)] [background-size:0_1px] items-baseline gap-[0.35rem] text-inherit hover:[background-size:100%_1px]" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer">
+                                <a class="inline-flex whitespace-nowrap bg-left-bottom bg-no-repeat [background-image:linear-gradient(currentColor,currentColor)] [background-size:0_1px] items-baseline gap-[0.35rem] text-inherit hover:[background-size:100%_1px]" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= htmlspecialchars($carbonTitle . ' opens an external website', ENT_QUOTES, 'UTF-8') ?>">
                                     <span>Carbon</span>
                                     <span class="<?= htmlspecialchars($carbonValueClass, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($carbonLabel, ENT_QUOTES, 'UTF-8') ?></span>
+                                    <?= $externalLinkIcon ?>
                                 </a>
                             </span>
                         </p>
@@ -125,11 +127,12 @@ $carbonValueClass = isset($carbonResult['label']) ? 'whitespace-nowrap opacity-7
                 <footer class="border-t border-taupe-900/20 py-5 text-xs text-taupe-900/70 lg:hidden">
                     <p class="flex flex-wrap items-center gap-4">
                         <a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a>
-                        <a href="https://github.com/mau-seifert/mau-coffee" class="text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer">Source</a>
+                        <a href="https://github.com/mau-seifert/mau-coffee" class="inline-flex items-baseline gap-[0.35rem] text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer" aria-label="Source opens an external website"><span>Source</span><?= $externalLinkIcon ?></a>
                         <span>
-                            <a class="inline-flex whitespace-nowrap bg-bottom-left bg-no-repeat bg-[linear-gradient(currentColor,currentColor)] bg-size-[0_1px] items-baseline gap-[0.35rem] text-inherit hover:bg-size-[100%_1px]" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer">
+                            <a class="inline-flex whitespace-nowrap bg-bottom-left bg-no-repeat bg-[linear-gradient(currentColor,currentColor)] bg-size-[0_1px] items-baseline gap-[0.35rem] text-inherit hover:bg-size-[100%_1px]" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= htmlspecialchars($carbonTitle . ' opens an external website', ENT_QUOTES, 'UTF-8') ?>">
                                 <span>Carbon</span>
                                 <span class="<?= htmlspecialchars($carbonValueClass, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($carbonLabel, ENT_QUOTES, 'UTF-8') ?></span>
+                                <?= $externalLinkIcon ?>
                             </a>
                         </span>
                     </p>
