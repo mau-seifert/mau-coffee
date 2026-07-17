@@ -8,11 +8,6 @@ const WEBSITE_CARBON_CACHE_VERSION = 9;
 const WEBSITE_CARBON_CACHE_KEY = 'wcb_https%3A%2F%2Fmau.coffee%2F_v9';
 const WEBSITE_CARBON_CACHE_TTL = 86400;
 
-function website_carbon_cache_file(): string
-{
-    return __DIR__ . '/../cache/website-carbon/' . hash('sha256', WEBSITE_CARBON_URL . '|v' . WEBSITE_CARBON_CACHE_VERSION) . '.json';
-}
-
 function website_carbon_fetch(string $endpoint, string $accept): ?string
 {
     $headers = implode("\r\n", [
@@ -175,49 +170,10 @@ function website_carbon_choose_result(?array $badgeResult, ?array $reportResult)
     return $badgeResult;
 }
 
-function website_carbon_read_disk_cache(): ?array
-{
-    $cacheFile = website_carbon_cache_file();
-    if (!is_file($cacheFile) || (time() - (int) filemtime($cacheFile)) > WEBSITE_CARBON_CACHE_TTL) {
-        return null;
-    }
-
-    $cached = @file_get_contents($cacheFile);
-    if ($cached === false) {
-        return null;
-    }
-
-    $decoded = json_decode($cached, true);
-
-    if (!is_array($decoded) || ($decoded['version'] ?? null) !== WEBSITE_CARBON_CACHE_VERSION) {
-        return null;
-    }
-
-    return $decoded;
-}
-
-function website_carbon_write_disk_cache(array $result): void
-{
-    $cacheFile = website_carbon_cache_file();
-    $cacheDir = dirname($cacheFile);
-
-    if (!is_dir($cacheDir)) {
-        @mkdir($cacheDir, 0755, true);
-    }
-
-    @file_put_contents($cacheFile, json_encode($result, JSON_UNESCAPED_SLASHES));
-}
-
 function website_carbon_result(): ?array
 {
     $cached = apcu_helper_fetch(WEBSITE_CARBON_CACHE_KEY);
     if (is_array($cached)) {
-        return $cached;
-    }
-
-    $cached = website_carbon_read_disk_cache();
-    if ($cached !== null) {
-        apcu_helper_store(WEBSITE_CARBON_CACHE_KEY, $cached, WEBSITE_CARBON_CACHE_TTL);
         return $cached;
     }
 
@@ -229,7 +185,6 @@ function website_carbon_result(): ?array
     }
 
     apcu_helper_store(WEBSITE_CARBON_CACHE_KEY, $normalized, WEBSITE_CARBON_CACHE_TTL);
-    website_carbon_write_disk_cache($normalized);
 
     return $normalized;
 }
