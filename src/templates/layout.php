@@ -34,6 +34,11 @@ if ($isShowcase) {
 }
 
 $ogImageUrl = $origin . '/og-image.png?' . http_build_query($ogImageParams, '', '&', PHP_QUERY_RFC3986);
+$carbonResult = function_exists('website_carbon_result') ? website_carbon_result() : null;
+$carbonLabel = (string) ($carbonResult['label'] ?? 'report');
+$carbonTitle = (string) ($carbonResult['title'] ?? 'Website Carbon report for mau.coffee');
+$carbonValueClass = isset($carbonResult['label']) ? 'whitespace-nowrap opacity-70' : 'whitespace-nowrap';
+
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -98,7 +103,16 @@ $ogImageUrl = $origin . '/og-image.png?' . http_build_query($ogImageParams, '', 
                     </nav>
 
                     <footer class="border-t border-taupe-900/20 pt-4 text-xs text-taupe-900/70">
-                        <p class="flex items-center gap-4"><a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a><a href="https://github.com/mau-seifert/mau-coffee" class="text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer">Source</a></p>
+                        <p class="flex flex-wrap items-center gap-4">
+                            <a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a>
+                            <a href="https://github.com/mau-seifert/mau-coffee" class="text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer">Source</a>
+                            <span>
+                                <a class="inline-flex items-baseline gap-[0.35rem] border-b border-transparent text-inherit hover:border-current" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer">
+                                    <span>Carbon</span>
+                                    <span class="<?= htmlspecialchars($carbonValueClass, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($carbonLabel, ENT_QUOTES, 'UTF-8') ?></span>
+                                </a>
+                            </span>
+                        </p>
                     </footer>
                 </div>
             </aside>
@@ -109,7 +123,16 @@ $ogImageUrl = $origin . '/og-image.png?' . http_build_query($ogImageParams, '', 
                 </main>
 
                 <footer class="border-t border-taupe-900/20 py-5 text-xs text-taupe-900/70 lg:hidden">
-                    <p class="flex items-center gap-4"><a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a><a href="https://github.com/mau-seifert/mau-coffee" class="text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer">Source</a></p>
+                    <p class="flex flex-wrap items-center gap-4">
+                        <a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a>
+                        <a href="https://github.com/mau-seifert/mau-coffee" class="text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer">Source</a>
+                        <span>
+                            <a class="inline-flex items-baseline gap-[0.35rem] border-b border-transparent text-inherit hover:border-current" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer">
+                                <span>Carbon</span>
+                                <span class="<?= htmlspecialchars($carbonValueClass, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($carbonLabel, ENT_QUOTES, 'UTF-8') ?></span>
+                            </a>
+                        </span>
+                    </p>
                 </footer>
             </div>
         </div>

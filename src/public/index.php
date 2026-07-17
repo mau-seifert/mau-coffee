@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../lib/posts.php';
 require_once __DIR__ . '/../lib/images.php';
 require_once __DIR__ . '/../lib/sitemap.php';
+require_once __DIR__ . '/../lib/website-carbon.php';
 
 $route = trim($_GET['route'] ?? '/', '/');
 
