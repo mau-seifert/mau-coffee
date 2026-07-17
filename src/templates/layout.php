@@ -107,7 +107,7 @@ $carbonValueClass = isset($carbonResult['label']) ? 'whitespace-nowrap opacity-7
                             <a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a>
                             <a href="https://github.com/mau-seifert/mau-coffee" class="text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer">Source</a>
                             <span>
-                                <a class="inline-flex items-baseline gap-[0.35rem] border-b border-transparent text-inherit hover:border-current" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer">
+                                <a class="inline-flex whitespace-nowrap bg-left-bottom bg-no-repeat [background-image:linear-gradient(currentColor,currentColor)] [background-size:0_1px] items-baseline gap-[0.35rem] text-inherit hover:[background-size:100%_1px]" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer">
                                     <span>Carbon</span>
                                     <span class="<?= htmlspecialchars($carbonValueClass, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($carbonLabel, ENT_QUOTES, 'UTF-8') ?></span>
                                 </a>
@@ -127,7 +127,7 @@ $carbonValueClass = isset($carbonResult['label']) ? 'whitespace-nowrap opacity-7
                         <a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a>
                         <a href="https://github.com/mau-seifert/mau-coffee" class="text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer">Source</a>
                         <span>
-                            <a class="inline-flex items-baseline gap-[0.35rem] border-b border-transparent text-inherit hover:border-current" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer">
+                            <a class="inline-flex whitespace-nowrap bg-bottom-left bg-no-repeat bg-[linear-gradient(currentColor,currentColor)] bg-size-[0_1px] items-baseline gap-[0.35rem] text-inherit hover:bg-size-[100%_1px]" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer">
                                 <span>Carbon</span>
                                 <span class="<?= htmlspecialchars($carbonValueClass, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($carbonLabel, ENT_QUOTES, 'UTF-8') ?></span>
                             </a>

@@ -4,8 +4,8 @@ require_once __DIR__ . '/cache.php';
 
 const WEBSITE_CARBON_URL = 'https://mau.coffee/';
 const WEBSITE_CARBON_REPORT_URL = 'https://www.websitecarbon.com/website/mau-coffee/';
-const WEBSITE_CARBON_CACHE_VERSION = 1;
-const WEBSITE_CARBON_CACHE_KEY = 'wcb_https%3A%2F%2Fmau.coffee%2F_v3';
+const WEBSITE_CARBON_CACHE_VERSION = 9;
+const WEBSITE_CARBON_CACHE_KEY = 'wcb_https%3A%2F%2Fmau.coffee%2F_v9';
 const WEBSITE_CARBON_CACHE_TTL = 86400;
 
 function website_carbon_cache_file(): string
@@ -77,7 +77,7 @@ function website_carbon_fetch_text(string $endpoint): ?string
 
 function website_carbon_normalize_grams(float $grams): string
 {
-    return rtrim(rtrim(number_format($grams, 4, '.', ''), '0'), '.');
+    return number_format($grams, 2, '.', '');
 }
 
 function website_carbon_format_result(float $grams, int|float|string|null $percent = null, ?string $comparison = null): array
@@ -90,6 +90,8 @@ function website_carbon_format_result(float $grams, int|float|string|null $perce
 
     return [
         'version' => WEBSITE_CARBON_CACHE_VERSION,
+        'grams' => $grams,
+        'percent' => is_numeric($percent) ? (int) round((float) $percent) : null,
         'label' => website_carbon_normalize_grams($grams) . 'g CO2/view',
         'title' => $title,
     ];
@@ -111,18 +113,28 @@ function website_carbon_parse_report(string $html): ?array
     $text = html_entity_decode(strip_tags($html), ENT_QUOTES, 'UTF-8');
     $text = trim((string) preg_replace('/\s+/u', ' ', $text));
 
-    if (!preg_match('/([0-9]+(?:\.[0-9]+)?)\s*g\s+of\s+CO(?:2|₂)e?\s+is\s+produced/iu', $text, $gramsMatch)) {
+    $grams = null;
+    if (preg_match('/"grams"\s*:\s*([0-9]+(?:\.[0-9]+)?(?:E[-+]?[0-9]+)?)/i', $html, $gramsMatch)) {
+        $grams = (float) $gramsMatch[1];
+    } elseif (preg_match('/([0-9]+(?:\.[0-9]+)?)\s*g\s+of\s+CO(?:2|₂)e?\s+is\s+produced/iu', $text, $gramsMatch)) {
+        $grams = (float) $gramsMatch[1];
+    }
+
+    if ($grams === null) {
         return null;
     }
 
     $percent = null;
     $comparison = null;
-    if (preg_match('/This\s+is\s+(cleaner|dirtier)\s+than\s+([0-9]+)\s*%\s+of\s+all\s+web\s+pages/i', $text, $cleanerMatch)) {
+    if (preg_match('/This\s+is\s+(cleaner|dirtier)\s+than.*?data-count="([0-9]+)"/is', $html, $cleanerMatch)) {
+        $comparison = strtolower($cleanerMatch[1]);
+        $percent = (int) $cleanerMatch[2];
+    } elseif (preg_match('/This\s+is\s+(cleaner|dirtier)\s+than\s+([0-9]+)\s*%\s+of\s+all\s+web\s+pages/i', $text, $cleanerMatch)) {
         $comparison = strtolower($cleanerMatch[1]);
         $percent = (int) $cleanerMatch[2];
     }
 
-    return website_carbon_format_result((float) $gramsMatch[1], $percent, $comparison);
+    return website_carbon_format_result($grams, $percent, $comparison);
 }
 
 function website_carbon_fetch_report_result(): ?array
@@ -130,6 +142,37 @@ function website_carbon_fetch_report_result(): ?array
     $html = website_carbon_fetch_text(WEBSITE_CARBON_REPORT_URL);
 
     return $html === null ? null : website_carbon_parse_report($html);
+}
+
+function website_carbon_choose_result(?array $badgeResult, ?array $reportResult): ?array
+{
+    if ($badgeResult === null) {
+        return $reportResult;
+    }
+
+    if ($reportResult === null) {
+        $badgeGrams = (float) ($badgeResult['grams'] ?? 0);
+        $badgePercent = $badgeResult['percent'] ?? null;
+        if ($badgeGrams <= 0 && ((int) ($badgePercent ?? 0)) === 0) {
+            return null;
+        }
+
+        return $badgeResult;
+    }
+
+    $badgeGrams = (float) ($badgeResult['grams'] ?? 0);
+    $reportGrams = (float) ($reportResult['grams'] ?? 0);
+    if ($badgeGrams <= 0 && $reportGrams > 0) {
+        return $reportResult;
+    }
+
+    $badgePercent = $badgeResult['percent'] ?? null;
+    $reportPercent = $reportResult['percent'] ?? null;
+    if (($badgePercent === null || (int) $badgePercent === 0) && is_numeric($reportPercent) && (int) $reportPercent > 0) {
+        return $reportResult;
+    }
+
+    return $badgeResult;
 }
 
 function website_carbon_read_disk_cache(): ?array
@@ -178,7 +221,9 @@ function website_carbon_result(): ?array
         return $cached;
     }
 
-    $normalized = website_carbon_fetch_badge_result() ?? website_carbon_fetch_report_result();
+    $badgeResult = website_carbon_fetch_badge_result();
+    $reportResult = website_carbon_fetch_report_result();
+    $normalized = website_carbon_choose_result($badgeResult, $reportResult);
     if ($normalized === null) {
         return null;
     }
