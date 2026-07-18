@@ -40,21 +40,26 @@ $webrings = [
 
     <section class="space-y-4 border-taupe-900/20 dark:border-taupe-100/20">
         <div class="space-y-4">
-            <?php foreach ($webrings as $ring): ?>
+            <?php foreach ($webrings as $index => $ring): ?>
                 <?php
-                    $isGradient = isset($ring['gradient'], $ring['softGradient']);
-                    $ringStyles = [
-                        '--ring-color: ' . $ring['color'],
-                        '--ring-color-soft: ' . $ring['softColor'],
-                    ];
+                $isGradient = isset($ring['gradient'], $ring['softGradient']);
+                $ringStyles = [
+                    '--ring-color: ' . $ring['color'],
+                    '--ring-color-soft: ' . $ring['softColor'],
+                ];
+                $delay = min((int)$index, 11) * 40;
 
-                    if ($isGradient) {
-                        $ringStyles[] = '--ring-gradient: ' . $ring['gradient'];
-                        $ringStyles[] = '--ring-gradient-soft: ' . $ring['softGradient'];
-                    }
+                if ($isGradient) {
+                    $ringStyles[] = '--ring-gradient: ' . $ring['gradient'];
+                    $ringStyles[] = '--ring-gradient-soft: ' . $ring['softGradient'];
+                }
+
+                if ($delay > 0) {
+                    $ringStyles[] = 'animation-delay: ' . $delay . 'ms';
+                }
                 ?>
                 <section
-                    class="webring-card <?= $isGradient ? 'webring-card--gradient' : '' ?> group relative flex items-center overflow-hidden border p-3 pl-12 pr-12 transition-colors sm:pl-14 sm:pr-14"
+                    class="webring-card <?= $isGradient ? 'webring-card--gradient' : '' ?> group relative flex items-center overflow-hidden border p-3 pl-12 pr-12 transition-colors animate-fade-up motion-reduce:animate-none sm:pl-14 sm:pr-14"
                     style="<?= htmlspecialchars(implode('; ', $ringStyles), ENT_QUOTES, 'UTF-8') ?>;">
                     <span class="webring-gradient pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
 

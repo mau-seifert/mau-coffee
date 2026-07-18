@@ -64,10 +64,13 @@ if ($previewCount > 0) {
 
                         $offsetClass = $index === 0 ? 'ml-1' : '-ml-6 sm:-ml-8';
                         $homeImageName = showcase_home_thumbnail_or_original($name);
+                        $delay = $index * 45;
+                        $delayStyle = $delay > 0 ? "animation-delay:{$delay}ms;" : '';
                         ?>
                         <a
                             href="/showcase"
-                            class="<?= trim('relative block w-32 sm:w-36 md:w-40 lg:w-44 aspect-3/2 overflow-hidden border border-taupe-900/25 bg-taupe-100 flex-none shadow-sm rotate-2 -translate-y-0.5 dark:border-taupe-100/25 dark:bg-taupe-900 ' . $offsetClass . ' ' . $zClass . ' ' . $visibilityClass) ?>">
+                            class="<?= trim('relative block w-32 sm:w-36 md:w-40 lg:w-44 aspect-3/2 overflow-hidden border border-taupe-900/25 bg-taupe-100 flex-none shadow-sm rotate-2 -translate-y-0.5 animate-fade-side motion-reduce:animate-none dark:border-taupe-100/25 dark:bg-taupe-900 ' . $offsetClass . ' ' . $zClass . ' ' . $visibilityClass) ?>"
+                            <?= $delayStyle !== '' ? 'style="' . htmlspecialchars($delayStyle, ENT_QUOTES, 'UTF-8') . '"' : '' ?>>
                             <img src="/img/showcase/<?= rawurlencode($homeImageName) ?>" alt="" width="900" height="600" loading="lazy" decoding="async" class="showcase-img w-full h-full object-cover">
                         </a>
                     <?php endforeach; ?>

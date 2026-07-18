@@ -12,6 +12,7 @@
  * - $titleTag (h2|h3)
  * - $dateClass
  * - $emptyMessage
+ * - $animatePosts
  */
 
 $listClass = $listClass ?? 'mt-6 space-y-3';
@@ -19,18 +20,22 @@ $itemCardClass = $itemCardClass ?? 'group relative flex flex-col gap-2 overflow-
 $titleClass = $titleClass ?? 'relative z-10 min-w-0 truncate text-base font-semibold underline-offset-4 group-hover:underline';
 $dateClass = $dateClass ?? 'relative z-10 text-sm text-taupe-900/70 dark:text-taupe-100/70';
 $emptyMessage = $emptyMessage ?? 'No posts yet. Coming soon.';
+$animatePosts = $animatePosts ?? true;
 $titleTag = ($titleTag ?? 'h2') === 'h3' ? 'h3' : 'h2';
 ?>
 
 <?php if (!empty($posts)): ?>
     <ul class="<?= htmlspecialchars((string)$listClass, ENT_QUOTES, 'UTF-8') ?>">
-        <?php foreach ($posts as $post): ?>
+        <?php foreach ($posts as $index => $post): ?>
             <?php
             $ts = strtotime((string)($post['created_at'] ?? ''));
             $dateValue = $ts ? date('Y-m-d', $ts) : '';
             $dateLabel = $ts ? date('F j, Y', $ts) : '';
+            $postDelay = $animatePosts ? min((int)$index, 11) * 40 : 0;
+            $postDelayStyle = $postDelay > 0 ? "animation-delay:{$postDelay}ms;" : '';
+            $postItemClass = $animatePosts ? 'animate-fade-up motion-reduce:animate-none' : '';
             ?>
-            <li>
+            <li class="<?= $postItemClass ?>" <?= $postDelayStyle !== '' ? ' style="' . htmlspecialchars($postDelayStyle, ENT_QUOTES, 'UTF-8') . '"' : '' ?>>
                 <a href="/blog/<?= htmlspecialchars($post['slug'], ENT_QUOTES, 'UTF-8') ?>" class="<?= htmlspecialchars((string)$itemCardClass, ENT_QUOTES, 'UTF-8') ?>">
                     <span class="pointer-events-none absolute inset-0 z-0 bg-gradient-to-l from-taupe-200/50 via-taupe-100/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-taupe-100/10 dark:via-taupe-100/5"></span>
                     <<?= $titleTag ?> class="<?= htmlspecialchars((string)$titleClass, ENT_QUOTES, 'UTF-8') ?>">
