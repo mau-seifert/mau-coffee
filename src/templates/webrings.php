@@ -20,6 +20,16 @@ $webrings = [
         'color' => '#111111',
         'softColor' => 'rgba(17, 17, 17, 0.14)',
     ],
+    [
+        'name' => 'Bucket Webring',
+        'url' => 'https://webring.bucketfish.me',
+        'previous' => 'https://webring.bucketfish.me/redirect.html?to=prev&name=MAU',
+        'next' => 'https://webring.bucketfish.me/redirect.html?to=next&name=MAU',
+        'color' => '#cdb4ff',
+        'softColor' => 'rgba(205, 180, 255, 0.22)',
+        'gradient' => 'linear-gradient(90deg, #cdb4ff 0%, #a9cfff 18%, #b6ead7 36%, #d5ffbd 54%, #fff9ae 72%, #ffd6bd 86%, #f0b4d8 100%)',
+        'softGradient' => 'linear-gradient(to left, rgba(205, 180, 255, 0.24), rgba(169, 207, 255, 0.18), rgba(213, 255, 189, 0.16), rgba(255, 249, 174, 0.16), transparent)',
+    ],
 ];
 ?>
 
@@ -31,9 +41,21 @@ $webrings = [
     <section class="space-y-4 border-taupe-900/20 dark:border-taupe-100/20">
         <div class="space-y-4">
             <?php foreach ($webrings as $ring): ?>
+                <?php
+                    $isGradient = isset($ring['gradient'], $ring['softGradient']);
+                    $ringStyles = [
+                        '--ring-color: ' . $ring['color'],
+                        '--ring-color-soft: ' . $ring['softColor'],
+                    ];
+
+                    if ($isGradient) {
+                        $ringStyles[] = '--ring-gradient: ' . $ring['gradient'];
+                        $ringStyles[] = '--ring-gradient-soft: ' . $ring['softGradient'];
+                    }
+                ?>
                 <section
-                    class="webring-card group relative flex items-center overflow-hidden border p-3 pl-12 pr-12 transition-colors sm:pl-14 sm:pr-14"
-                    style="--ring-color: <?= htmlspecialchars($ring['color'], ENT_QUOTES, 'UTF-8') ?>; --ring-color-soft: <?= htmlspecialchars($ring['softColor'], ENT_QUOTES, 'UTF-8') ?>;">
+                    class="webring-card <?= $isGradient ? 'webring-card--gradient' : '' ?> group relative flex items-center overflow-hidden border p-3 pl-12 pr-12 transition-colors sm:pl-14 sm:pr-14"
+                    style="<?= htmlspecialchars(implode('; ', $ringStyles), ENT_QUOTES, 'UTF-8') ?>;">
                     <span class="webring-gradient pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
 
                     <nav aria-label="<?= htmlspecialchars($ring['name'], ENT_QUOTES, 'UTF-8') ?> navigation">

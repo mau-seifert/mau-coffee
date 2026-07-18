@@ -26,12 +26,26 @@ body {
 }
 
 .webring-gradient {
-	background: linear-gradient(to left, var(--ring-color-soft), transparent);
+	background: var(--ring-gradient-soft, linear-gradient(to left, var(--ring-color-soft), transparent));
+}
+
+.webring-card--gradient .webring-link {
+	-webkit-background-clip: text;
+	background-clip: text;
+	background-image: var(--ring-gradient);
+	color: transparent;
 }
 
 .webring-nav-link:hover {
 	background-color: var(--ring-color);
 	color: var(--color-taupe-100);
+}
+
+.webring-card--gradient .webring-nav-link:hover {
+	-webkit-background-clip: initial;
+	background-clip: initial;
+	background-image: var(--ring-gradient);
+	color: var(--color-taupe-900);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,6 +59,11 @@ body {
 		color: color-mix(in oklab, var(--ring-color) 25%, white);
 	}
 
+	.webring-card--gradient .webring-link,
+	.webring-card--gradient .webring-link:hover {
+		color: transparent;
+	}
+
 	.webring-card {
 		border-color: #d8d2ce;
 		border-color: color-mix(in oklab, var(--ring-color) 45%, white);
@@ -52,7 +71,7 @@ body {
 
 	.webring-gradient {
 		background: linear-gradient(to left, rgba(216, 210, 206, 0.26), transparent);
-		background: linear-gradient(to left, color-mix(in oklab, var(--ring-color) 26%, transparent), transparent);
+		background: var(--ring-gradient-soft, linear-gradient(to left, color-mix(in oklab, var(--ring-color) 26%, transparent), transparent));
 	}
 
 	.webring-nav-link:hover {
@@ -60,9 +79,15 @@ body {
 		background-color: color-mix(in oklab, var(--ring-color) 40%, white);
 		color: var(--color-taupe-900);
 	}
+
+	.webring-card--gradient .webring-nav-link:hover {
+		background-image: var(--ring-gradient);
+		color: var(--color-taupe-900);
+	}
 }
 
-.lightbox, .lightbox-bg {
+.lightbox,
+.lightbox-bg {
 	display: none;
 }
 
