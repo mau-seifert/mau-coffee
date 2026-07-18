@@ -8,6 +8,7 @@ $images = get_showcase_image_filenames();
 $previewImages = [];
 $totalImages = count($images);
 $previewCount = min(5, $totalImages);
+
 if ($previewCount > 0) {
     $timeBucket = (int) floor(time() / 21600);
     $start = $timeBucket % $totalImages;
@@ -28,7 +29,7 @@ if ($previewCount > 0) {
 <section class="space-y-6">
     <div>
         <h1 class="text-3xl tracking-tight sm:text-4xl">Notes by mau</h1>
-        <p class="mt-3 text-sm text-taupe-900/75"><?= htmlspecialchars($homeIntro, ENT_QUOTES, 'UTF-8') ?></p>
+        <p class="mt-3 text-sm text-taupe-900/75 dark:text-taupe-100/75"><?= htmlspecialchars($homeIntro, ENT_QUOTES, 'UTF-8') ?></p>
     </div>
 
     <div>
@@ -66,14 +67,14 @@ if ($previewCount > 0) {
                         ?>
                         <a
                             href="/showcase"
-                            class="<?= trim('relative block w-32 sm:w-36 md:w-40 lg:w-44 aspect-[3/2] overflow-hidden border border-taupe-900/25 bg-taupe-100 flex-none shadow-sm rotate-2 -translate-y-0.5 ' . $offsetClass . ' ' . $zClass . ' ' . $visibilityClass) ?>">
+                            class="<?= trim('relative block w-32 sm:w-36 md:w-40 lg:w-44 aspect-3/2 overflow-hidden border border-taupe-900/25 bg-taupe-100 flex-none shadow-sm rotate-2 -translate-y-0.5 dark:border-taupe-100/25 dark:bg-taupe-900 ' . $offsetClass . ' ' . $zClass . ' ' . $visibilityClass) ?>">
                             <img src="/img/showcase/<?= rawurlencode($homeImageName) ?>" alt="" width="900" height="600" loading="lazy" decoding="async" class="showcase-img w-full h-full object-cover">
                         </a>
                     <?php endforeach; ?>
                 </div>
             </div>
         <?php else: ?>
-            <p class="mt-3 text-sm text-taupe-900/70">No images found.</p>
+            <p class="mt-3 text-sm text-taupe-900/70 dark:text-taupe-100/70">No images found.</p>
         <?php endif; ?>
         <a href="/showcase" class="inline-block text-sm underline underline-offset-4">View all photos</a>
     </div>

@@ -234,7 +234,7 @@ function serve_open_graph_image(): void
     $cachePart = $type . '|' . $title . '|' . $description;
     if ($type === 'showcase') {
         $title = 'Photos';
-        $description = 'A selection of photos taken with a Canon AE-1 film camera.';
+        $description = 'A selection of photos taken with my Canon AE-1.';
 
         $imageName = showcase_home_thumbnail_or_original((string) ($_GET['image'] ?? ''));
         $imagePath = $imageName !== '' ? showcase_image_real_path($imageName) : '';

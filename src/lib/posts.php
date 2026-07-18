@@ -63,9 +63,7 @@ function parse_post_file(string $filePath): ?array
 function get_published_posts(): array
 {
     static $posts = null;
-    if ($posts !== null) {
-        return $posts;
-    }
+    if ($posts !== null) return $posts;
 
     $dir = POSTS_CONTENT_DIR;
     if (!is_dir($dir)) {
@@ -117,13 +115,13 @@ function render_basic_markdown(string $markdown): string
     $escaped = preg_replace_callback('/```(.*?)```/s', function (array $m) use (&$codeBlocks): string {
         $index = count($codeBlocks);
         $code = trim($m[1], "\n");
-        $codeBlocks[] = '<pre class="overflow-x-auto border border-taupe-900/20 bg-taupe-100/50 p-3 text-sm"><code>' . $code . '</code></pre>';
+        $codeBlocks[] = '<pre class="overflow-x-auto border border-taupe-900/20 bg-taupe-100/50 p-3 text-sm dark:border-taupe-100/20 dark:bg-taupe-100/10"><code>' . $code . '</code></pre>';
         return "@@CODEBLOCK{$index}@@";
     }, $escaped) ?? $escaped;
 
     $escaped = preg_replace('/!\[([^\]]*)\]\(([^)]+)\)/', '<img src="$2" alt="$1" class="my-3 max-w-full sm:max-w-lg rounded">', $escaped) ?? $escaped;
     $escaped = preg_replace('/\[([^\]]+)\]\(([^)]+)\)/', '<a href="$2" class="underline underline-offset-4">$1</a>', $escaped) ?? $escaped;
-    $escaped = preg_replace('/`([^`]+)`/', '<code class="border border-taupe-900/20 bg-taupe-100/50 px-1">$1</code>', $escaped) ?? $escaped;
+    $escaped = preg_replace('/`([^`]+)`/', '<code class="border border-taupe-900/20 bg-taupe-100/50 px-1 dark:border-taupe-100/20 dark:bg-taupe-100/10">$1</code>', $escaped) ?? $escaped;
     $escaped = preg_replace('/\*\*([^*]+)\*\*/', '<strong>$1</strong>', $escaped) ?? $escaped;
     $escaped = preg_replace('/\*([^*]+)\*/', '<em>$1</em>', $escaped) ?? $escaped;
 

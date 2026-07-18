@@ -47,6 +47,7 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
     <meta name="description" content="<?= htmlspecialchars($shortOgDescription, ENT_QUOTES, 'UTF-8') ?>">
     <link rel="canonical" href="<?= htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8') ?>">
@@ -74,18 +75,18 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
     <link rel="manifest" href="/manifest/site.webmanifest?v=20260604" />
 </head>
 
-<body class="min-h-screen bg-taupe-100 text-taupe-900">
+<body class="min-h-screen bg-taupe-100 text-taupe-900 dark:bg-taupe-900 dark:text-taupe-100">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <nav class="flex items-center justify-between border-b border-taupe-900/20 py-4 lg:hidden">
+        <nav class="flex items-center justify-between border-b border-taupe-900/20 py-4 dark:border-taupe-100/20 lg:hidden">
             <a href="/" class="inline-flex items-center gap-3">
                 <img src="/banner.gif" alt="Logo" height="31" width="81" class="inline-block">
                 <span class="hidden text-sm font-medium tracking-wide sm:inline">Mau Seifert</span>
             </a>
             <div class="flex items-center gap-3 text-xs sm:gap-5 sm:text-sm">
-                <a href="/" class="underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isHome ? 'font-bold' : '' ?>">Home</a>
-                <a href="/blog" class="underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isBlog ? 'font-bold' : '' ?>">Blog</a>
-                <a href="/showcase" class="underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isShowcase ? 'font-bold' : '' ?>">Photos</a>
-                <a href="/webrings" class="underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isWebrings ? 'font-bold' : '' ?>">Rings</a>
+                <a href="/" class="underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isHome ? 'font-bold' : '' ?>">Home</a>
+                <a href="/blog" class="underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isBlog ? 'font-bold' : '' ?>">Blog</a>
+                <a href="/showcase" class="underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isShowcase ? 'font-bold' : '' ?>">Photos</a>
+                <a href="/webrings" class="underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isWebrings ? 'font-bold' : '' ?>">Rings</a>
             </div>
         </nav>
 
@@ -97,16 +98,16 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
                     </a>
 
                     <nav class="space-y-3 text-sm">
-                        <a href="/" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isHome ? 'font-bold' : '' ?>"><?= $isHome ? '• ' : '' ?>Home</a>
-                        <a href="/blog" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isBlog ? 'font-bold' : '' ?>"><?= $isBlog ? '• ' : '' ?>Blog</a>
-                        <a href="/showcase" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isShowcase ? 'font-bold' : '' ?>"><?= $isShowcase ? '• ' : '' ?>Photos</a>
-                        <a href="/webrings" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 <?= $isWebrings ? 'font-bold' : '' ?>"><?= $isWebrings ? '• ' : '' ?>Webrings</a>
+                        <a href="/" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isHome ? 'font-bold' : '' ?>"><?= $isHome ? '• ' : '' ?>Home</a>
+                        <a href="/blog" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isBlog ? 'font-bold' : '' ?>"><?= $isBlog ? '• ' : '' ?>Blog</a>
+                        <a href="/showcase" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isShowcase ? 'font-bold' : '' ?>"><?= $isShowcase ? '• ' : '' ?>Photos</a>
+                        <a href="/webrings" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isWebrings ? 'font-bold' : '' ?>"><?= $isWebrings ? '• ' : '' ?>Webrings</a>
                     </nav>
 
-                    <footer class="border-t border-taupe-900/20 pt-4 text-xs text-taupe-900/70">
+                    <footer class="border-t border-taupe-900/20 pt-4 text-xs text-taupe-900/70 dark:border-taupe-100/20 dark:text-taupe-100/70">
                         <p class="flex flex-wrap items-center gap-4">
                             <a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a>
-                            <a href="https://github.com/mau-seifert/mau-coffee" class="inline-flex items-baseline gap-[0.35rem] text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer" aria-label="Source opens an external website"><span>Source</span><?= $externalLinkIcon ?></a>
+                            <a href="https://github.com/mau-seifert/mau-coffee" class="inline-flex items-baseline gap-[0.35rem] text-taupe-900/70 hover:underline dark:text-taupe-100/70" target="_blank" rel="noopener noreferrer" aria-label="Source opens an external website"><span>Source</span><?= $externalLinkIcon ?></a>
                             <span>
                                 <a class="inline-flex whitespace-nowrap bg-left-bottom bg-no-repeat [background-image:linear-gradient(currentColor,currentColor)] [background-size:0_1px] items-baseline gap-[0.35rem] text-inherit hover:[background-size:100%_1px]" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= htmlspecialchars($carbonTitle . ' opens an external website', ENT_QUOTES, 'UTF-8') ?>">
                                     <span>Carbon</span>
@@ -124,10 +125,10 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
                     <?= $content ?>
                 </main>
 
-                <footer class="border-t border-taupe-900/20 py-5 text-xs text-taupe-900/70 lg:hidden">
+                <footer class="border-t border-taupe-900/20 py-5 text-xs text-taupe-900/70 dark:border-taupe-100/20 dark:text-taupe-100/70 lg:hidden">
                     <p class="flex flex-wrap items-center gap-4">
                         <a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a>
-                        <a href="https://github.com/mau-seifert/mau-coffee" class="inline-flex items-baseline gap-[0.35rem] text-taupe-900/70 hover:underline" target="_blank" rel="noopener noreferrer" aria-label="Source opens an external website"><span>Source</span><?= $externalLinkIcon ?></a>
+                        <a href="https://github.com/mau-seifert/mau-coffee" class="inline-flex items-baseline gap-[0.35rem] text-taupe-900/70 hover:underline dark:text-taupe-100/70" target="_blank" rel="noopener noreferrer" aria-label="Source opens an external website"><span>Source</span><?= $externalLinkIcon ?></a>
                         <span>
                             <a class="inline-flex whitespace-nowrap bg-bottom-left bg-no-repeat bg-[linear-gradient(currentColor,currentColor)] bg-size-[0_1px] items-baseline gap-[0.35rem] text-inherit hover:bg-size-[100%_1px]" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= htmlspecialchars($carbonTitle . ' opens an external website', ENT_QUOTES, 'UTF-8') ?>">
                                 <span>Carbon</span>

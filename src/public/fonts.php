@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Proxy the Google Fonts CSS and rewrite font-file URLs so the browser never
  * connects directly to Google's servers.  The CSS is cached in APCu for 24 h.
@@ -7,7 +8,7 @@ require_once __DIR__ . '/../lib/cache.php';
 
 const GFONTS_URL = 'https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap';
 const GFONTS_CACHE_KEY = 'gfonts_css_v1';
-const GFONTS_CACHE_TTL = 86400; // 24 h
+const GFONTS_CACHE_TTL = 86400;
 
 $css = apcu_helper_fetch(GFONTS_CACHE_KEY);
 
@@ -22,7 +23,6 @@ if ($css === null) {
     ]);
 
     $css = @file_get_contents(GFONTS_URL, false, $context);
-
     if ($css === false) {
         http_response_code(502);
         exit;

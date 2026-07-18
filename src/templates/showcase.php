@@ -1,7 +1,7 @@
 <?php
 $title = 'Showcase - Notes by mau';
 $metaTitle = 'Photos';
-$showcaseDescription = 'A selection of photos taken with a Canon AE-1 film camera';
+$showcaseDescription = 'A selection of photos taken with my Canon AE-1';
 $metaDescription = $showcaseDescription;
 
 $imageNames = get_showcase_image_filenames();
@@ -28,7 +28,7 @@ foreach ($pagedImages as $idx => $name) {
     <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div class="max-w-2xl">
             <h1 class="text-3xl tracking-tight sm:text-4xl">Photos</h1>
-            <p class="mt-3 text-sm text-taupe-900/75"><?= htmlspecialchars($showcaseDescription, ENT_QUOTES, 'UTF-8') ?></p>
+            <p class="mt-3 text-sm text-taupe-900/75 dark:text-taupe-100/75"><?= htmlspecialchars($showcaseDescription, ENT_QUOTES, 'UTF-8') ?></p>
         </div>
     </div>
 </section>
@@ -44,7 +44,7 @@ foreach ($pagedImages as $idx => $name) {
             $delay = $item['delay'];
             $delayStyle = $delay > 0 ? "animation-delay:{$delay}ms;" : '';
             ?>
-            <a href="#lb-<?= $i ?>" class="group block overflow-hidden border border-taupe-900/25 cursor-zoom-in animate-fade-up motion-reduce:animate-none" style="aspect-ratio:3/2;<?= $delayStyle ?>">
+            <a href="#lb-<?= $i ?>" class="group block overflow-hidden border border-taupe-900/25 cursor-zoom-in animate-fade-up dark:border-taupe-100/25 motion-reduce:animate-none" style="aspect-ratio:3/2;<?= $delayStyle ?>">
                 <img src="/img/showcase/<?= $encoded ?>" alt="" width="900" height="600" loading="<?= $loading ?>" fetchpriority="<?= $priority ?>" decoding="async" class="showcase-img w-full h-full object-cover transition duration-300 group-hover:scale-105 group-hover:brightness-90">
             </a>
         <?php endforeach; ?>
@@ -56,9 +56,9 @@ foreach ($pagedImages as $idx => $name) {
     ?>
         <nav class="mt-4 flex items-center gap-2 text-sm" aria-label="Pagination">
             <?php if ($page > 1): ?>
-                <a href="?page=<?= $page - 1 ?>#photos" class="inline-flex items-center gap-2 px-3 py-1 rounded border border-taupe-900/20 hover:bg-taupe-100 no-underline">&larr; Prev</a>
+                <a href="?page=<?= $page - 1 ?>#photos" class="inline-flex items-center gap-2 px-3 py-1 rounded border border-taupe-900/20 hover:bg-taupe-100 no-underline dark:border-taupe-100/20 dark:hover:bg-taupe-100/10">&larr; Prev</a>
             <?php else: ?>
-                <span class="inline-flex items-center gap-2 px-3 py-1 rounded text-taupe-900/40">&larr; Prev</span>
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded text-taupe-900/40 dark:text-taupe-100/40">&larr; Prev</span>
             <?php endif; ?>
 
             <?php
@@ -73,15 +73,15 @@ foreach ($pagedImages as $idx => $name) {
             foreach ($pagesToShow as $p):
                 if ($lastRendered !== 0 && $p > $lastRendered + 1):
             ?>
-                    <span class="px-2 py-1 text-taupe-900/60" aria-hidden="true">...</span>
+                    <span class="px-2 py-1 text-taupe-900/60 dark:text-taupe-100/60" aria-hidden="true">...</span>
                 <?php
                 endif;
 
                 if ($p === $page):
                 ?>
-                    <span class="px-3 py-1 rounded font-semibold bg-taupe-100"><?= $p ?></span>
+                    <span class="px-3 py-1 rounded font-semibold bg-taupe-100 dark:bg-taupe-100/10"><?= $p ?></span>
                 <?php else: ?>
-                    <a href="?page=<?= $p ?>#photos" class="px-3 py-1 rounded border border-taupe-900/20 hover:bg-taupe-100 no-underline"><?= $p ?></a>
+                    <a href="?page=<?= $p ?>#photos" class="px-3 py-1 rounded border border-taupe-900/20 hover:bg-taupe-100 no-underline dark:border-taupe-100/20 dark:hover:bg-taupe-100/10"><?= $p ?></a>
             <?php
                 endif;
                 $lastRendered = $p;
@@ -89,9 +89,9 @@ foreach ($pagedImages as $idx => $name) {
             ?>
 
             <?php if ($page < $totalPages): ?>
-                <a href="?page=<?= $page + 1 ?>#photos" class="inline-flex items-center gap-2 px-3 py-1 rounded border border-taupe-900/20 hover:bg-taupe-100 no-underline">Next &rarr;</a>
+                <a href="?page=<?= $page + 1 ?>#photos" class="inline-flex items-center gap-2 px-3 py-1 rounded border border-taupe-900/20 hover:bg-taupe-100 no-underline dark:border-taupe-100/20 dark:hover:bg-taupe-100/10">Next &rarr;</a>
             <?php else: ?>
-                <span class="inline-flex items-center gap-2 px-3 py-1 rounded text-taupe-900/40">Next &rarr;</span>
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded text-taupe-900/40 dark:text-taupe-100/40">Next &rarr;</span>
             <?php endif; ?>
         </nav>
     <?php endif; ?>
@@ -177,5 +177,5 @@ foreach ($pagedImages as $idx => $name) {
     </script>
 
 <?php else: ?>
-    <p class="mt-8 text-sm text-taupe-900/70">No images found.</p>
+    <p class="mt-8 text-sm text-taupe-900/70 dark:text-taupe-100/70">No images found.</p>
 <?php endif; ?>

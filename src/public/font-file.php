@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Proxy individual font files from fonts.gstatic.com.
  * Only requests to that exact host are allowed to prevent SSRF.
@@ -48,11 +49,10 @@ $type = match ($ext) {
     default => 'application/octet-stream',
 };
 
-if (!is_dir($cacheDir)) {
-    mkdir($cacheDir, 0755, true);
-}
+if (!is_dir($cacheDir)) mkdir($cacheDir, 0755, true);
+
 file_put_contents($cacheFile, serialize(['type' => $type, 'body' => $body]));
 
 header('Content-Type: ' . $type);
-header('Cache-Control: public, max-age=2592000'); // 30 days
+header('Cache-Control: public, max-age=2592000');
 echo $body;
