@@ -1,12 +1,15 @@
 <?php
+require_once __DIR__ . '/../lib/site.php';
+
 $currentRoute = trim($_GET['route'] ?? '', '/');
 $isHome = $currentRoute === '';
 $isBlog = $currentRoute === 'blog' || str_starts_with($currentRoute, 'blog/');
+$isBlogPost = str_starts_with($currentRoute, 'blog/') && isset($post) && is_array($post);
 $isShowcase = $currentRoute === 'showcase';
 $isWebrings = $currentRoute === 'webrings';
 $isPrivacy = $currentRoute === 'privacy';
 
-$siteDescription = 'Make yourself at home, pour a cup, and linger for a moment.';
+$siteDescription = SITE_DESCRIPTION;
 $pageTitle = (string) ($title ?? 'Notes by mau');
 $pageMetaTitle = (string) ($metaTitle ?? $pageTitle);
 $pageMetaDescription = (string) ($metaDescription ?? $siteDescription);
@@ -14,7 +17,7 @@ $pageMetaDescription = (string) ($metaDescription ?? $siteDescription);
 $shortOgTitle = function_exists('og_truncate_text') ? og_truncate_text($pageMetaTitle, 32) : $pageMetaTitle;
 $shortOgDescription = function_exists('og_truncate_text') ? og_truncate_text($pageMetaDescription, 72) : $pageMetaDescription;
 
-$origin = 'https://mau.coffee';
+$origin = SITE_ORIGIN;
 $canonicalPath = $currentRoute === '' ? '/' : '/' . $currentRoute;
 $canonicalUrl = $origin . $canonicalPath;
 
@@ -42,7 +45,7 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
 
 ?>
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -51,8 +54,9 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
     <meta name="description" content="<?= htmlspecialchars($shortOgDescription, ENT_QUOTES, 'UTF-8') ?>">
     <link rel="canonical" href="<?= htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8') ?>">
-    <meta property="og:type" content="<?= isset($post) && is_array($post) ? 'article' : 'website' ?>">
-    <meta property="og:site_name" content="Notes by mau">
+    <link rel="alternate" type="application/rss+xml" title="<?= htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8') ?> RSS feed" href="<?= htmlspecialchars(site_url('/feed.xml'), ENT_QUOTES, 'UTF-8') ?>">
+    <meta property="og:type" content="<?= $isBlogPost ? 'article' : 'website' ?>">
+    <meta property="og:site_name" content="<?= htmlspecialchars(SITE_NAME, ENT_QUOTES, 'UTF-8') ?>">
     <meta property="og:title" content="<?= htmlspecialchars($shortOgTitle, ENT_QUOTES, 'UTF-8') ?>">
     <meta property="og:description" content="<?= htmlspecialchars($shortOgDescription, ENT_QUOTES, 'UTF-8') ?>">
     <meta property="og:url" content="<?= htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8') ?>">
@@ -61,6 +65,12 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <?php if ($isBlogPost): ?>
+        <?php $publishedTime = strtotime((string) ($post['created_at'] ?? '')); ?>
+        <?php $modifiedTime = strtotime((string) ($post['updated_at'] ?? '')); ?>
+        <?php if ($publishedTime): ?><meta property="article:published_time" content="<?= gmdate('c', $publishedTime) ?>"><?php endif; ?>
+        <?php if ($modifiedTime): ?><meta property="article:modified_time" content="<?= gmdate('c', $modifiedTime) ?>"><?php endif; ?>
+    <?php endif; ?>
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?= htmlspecialchars($shortOgTitle, ENT_QUOTES, 'UTF-8') ?>">
     <meta name="twitter:description" content="<?= htmlspecialchars($shortOgDescription, ENT_QUOTES, 'UTF-8') ?>">
