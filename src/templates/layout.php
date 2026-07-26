@@ -91,7 +91,7 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <nav class="flex items-center justify-between border-b border-taupe-900/20 py-4 dark:border-taupe-100/20 lg:hidden">
             <a href="/" class="inline-flex items-center gap-3">
-                <img src="/banner.gif" alt="Logo" height="31" width="81" class="inline-block">
+                <img src="/banner.gif" alt="Logo" height="31" width="88" class="inline-block">
                 <span class="hidden text-sm font-medium tracking-wide sm:inline">Notes by mau</span>
             </a>
             <div class="flex items-center gap-3 text-xs sm:gap-5 sm:text-sm">
@@ -106,7 +106,7 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
             <aside class="hidden lg:block self-start sticky top-10">
                 <div class="space-y-8 pr-8">
                     <a href="/" class="inline-flex items-center gap-3">
-                        <img src="/banner.gif" alt="Logo" height="31" width="81" class="inline-block">
+                        <img src="/banner.gif" alt="Logo" height="31" width="88" class="inline-block">
                     </a>
 
                     <nav class="space-y-3 text-sm">
