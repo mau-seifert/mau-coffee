@@ -30,6 +30,14 @@ $webrings = [
         'gradient' => 'linear-gradient(90deg, #cdb4ff 0%, #a9cfff 18%, #b6ead7 36%, #d5ffbd 54%, #fff9ae 72%, #ffd6bd 86%, #f0b4d8 100%)',
         'softGradient' => 'linear-gradient(to left, rgba(205, 180, 255, 0.24), rgba(169, 207, 255, 0.18), rgba(213, 255, 189, 0.16), rgba(255, 249, 174, 0.16), transparent)',
     ],
+    [
+        'name' => 'Webmaster Webring',
+        'url' => 'https://webmasterwebring.netlify.app',
+        'previous' => 'https://webmasterwebring.netlify.app?mau-previous',
+        'next' => 'https://webmasterwebring.netlify.app?mau-next',
+        'color' => '#89bbe3',
+        'softColor' => 'rgba(137, 187, 227, 0.22)'
+],
 ];
 ?>
 
