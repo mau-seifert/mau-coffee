@@ -68,8 +68,10 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
     <?php if ($isBlogPost): ?>
         <?php $publishedTime = strtotime((string) ($post['created_at'] ?? '')); ?>
         <?php $modifiedTime = strtotime((string) ($post['updated_at'] ?? '')); ?>
-        <?php if ($publishedTime): ?><meta property="article:published_time" content="<?= gmdate('c', $publishedTime) ?>"><?php endif; ?>
-        <?php if ($modifiedTime): ?><meta property="article:modified_time" content="<?= gmdate('c', $modifiedTime) ?>"><?php endif; ?>
+        <?php if ($publishedTime): ?>
+            <meta property="article:published_time" content="<?= gmdate('c', $publishedTime) ?>"><?php endif; ?>
+        <?php if ($modifiedTime): ?>
+            <meta property="article:modified_time" content="<?= gmdate('c', $modifiedTime) ?>"><?php endif; ?>
     <?php endif; ?>
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?= htmlspecialchars($shortOgTitle, ENT_QUOTES, 'UTF-8') ?>">
@@ -90,7 +92,7 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
         <nav class="flex items-center justify-between border-b border-taupe-900/20 py-4 dark:border-taupe-100/20 lg:hidden">
             <a href="/" class="inline-flex items-center gap-3">
                 <img src="/banner.gif" alt="Logo" height="31" width="81" class="inline-block">
-                <span class="hidden text-sm font-medium tracking-wide sm:inline">Mau Seifert</span>
+                <span class="hidden text-sm font-medium tracking-wide sm:inline">Notes by mau</span>
             </a>
             <div class="flex items-center gap-3 text-xs sm:gap-5 sm:text-sm">
                 <a href="/" class="underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isHome ? 'font-bold' : '' ?>">Home</a>

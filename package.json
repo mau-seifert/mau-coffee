@@ -4,7 +4,7 @@
     "tailwindcss": "^4.2.2"
   },
   "scripts": {
-    "build:css": "tailwindcss -i ./src/public/styles.css -o ./src/public/styles.min.css",
+    "build:css": "tailwindcss -i ./src/public/styles.css -o ./src/public/styles.min.css --minify",
     "watch:css": "tailwindcss -i ./src/public/styles.css -o ./src/public/styles.min.css --watch"
   }
 }
