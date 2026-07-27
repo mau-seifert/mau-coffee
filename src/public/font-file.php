@@ -7,6 +7,8 @@
 
 $url = (string) ($_GET['url'] ?? '');
 
+const FONT_CACHE_CONTROL = 'public, max-age=31536000, immutable';
+
 if (!preg_match('#^https://fonts\.gstatic\.com/[a-zA-Z0-9/_.\-]+$#', $url)) {
     http_response_code(400);
     exit;
@@ -19,7 +21,7 @@ if (file_exists($cacheFile)) {
     $data = unserialize(file_get_contents($cacheFile), ['allowed_classes' => false]);
     if (is_array($data) && isset($data['type'], $data['body'])) {
         header('Content-Type: ' . $data['type']);
-        header('Cache-Control: public, max-age=2592000'); // 30 days
+        header('Cache-Control: ' . FONT_CACHE_CONTROL);
         echo $data['body'];
         exit;
     }
@@ -54,5 +56,5 @@ if (!is_dir($cacheDir)) {
 file_put_contents($cacheFile, serialize(['type' => $type, 'body' => $body]));
 
 header('Content-Type: ' . $type);
-header('Cache-Control: public, max-age=2592000'); // 30 days
+header('Cache-Control: ' . FONT_CACHE_CONTROL);
 echo $body;

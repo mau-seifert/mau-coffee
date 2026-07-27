@@ -34,6 +34,8 @@ if ($isShowcase) {
 }
 
 $ogImageUrl = $origin . '/og-image.png?' . http_build_query($ogImageParams, '', '&', PHP_QUERY_RFC3986);
+$stylesVersion = (int) (filemtime(__DIR__ . '/../public/styles.min.css') ?: 0);
+$bannerVersion = (int) (filemtime(__DIR__ . '/../public/banner.gif') ?: 0);
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -41,6 +43,10 @@ $ogImageUrl = $origin . '/og-image.png?' . http_build_query($ogImageParams, '', 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" href="/font-file.php?url=https%3A%2F%2Ffonts.gstatic.com%2Fs%2Fsora%2Fv17%2FxMQbuFFYT72XzQUpDg.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/banner.gif?v=<?= $bannerVersion ?>" as="image" type="image/gif" fetchpriority="high">
+    <link rel="stylesheet" href="/fonts.php">
+    <link rel="stylesheet" href="/styles.min.css?v=<?= $stylesVersion ?>">
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
     <meta name="description" content="<?= htmlspecialchars($shortOgDescription, ENT_QUOTES, 'UTF-8') ?>">
     <link rel="canonical" href="<?= htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8') ?>">
@@ -58,8 +64,6 @@ $ogImageUrl = $origin . '/og-image.png?' . http_build_query($ogImageParams, '', 
     <meta name="twitter:title" content="<?= htmlspecialchars($shortOgTitle, ENT_QUOTES, 'UTF-8') ?>">
     <meta name="twitter:description" content="<?= htmlspecialchars($shortOgDescription, ENT_QUOTES, 'UTF-8') ?>">
     <meta name="twitter:image" content="<?= htmlspecialchars($ogImageUrl, ENT_QUOTES, 'UTF-8') ?>">
-    <link rel="stylesheet" href="/fonts.php">
-    <link rel="stylesheet" href="/styles.min.css">
     <link rel="icon" type="image/png" href="/manifest/favicon-96x96.png?v=20260604" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/manifest/favicon.svg?v=20260604" />
     <link rel="shortcut icon" href="/manifest/favicon.ico?v=20260604" />
@@ -72,7 +76,7 @@ $ogImageUrl = $origin . '/og-image.png?' . http_build_query($ogImageParams, '', 
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <nav class="flex items-center justify-between border-b border-taupe-900/20 py-4 lg:hidden">
             <a href="/" class="inline-flex items-center gap-3">
-                <img src="/banner.gif" alt="Logo" height="31" width="81" class="inline-block">
+                <img src="/banner.gif?v=<?= $bannerVersion ?>" alt="Logo" height="31" width="81" class="inline-block">
                 <span class="hidden text-sm font-medium tracking-wide sm:inline">Mau Seifert</span>
             </a>
             <div class="flex items-center gap-3 text-xs sm:gap-5 sm:text-sm">
@@ -87,7 +91,7 @@ $ogImageUrl = $origin . '/og-image.png?' . http_build_query($ogImageParams, '', 
             <aside class="hidden lg:block self-start sticky top-10">
                 <div class="space-y-8 pr-8">
                     <a href="/" class="inline-flex items-center gap-3">
-                        <img src="/banner.gif" alt="Logo" height="31" width="81" class="inline-block">
+                        <img src="/banner.gif?v=<?= $bannerVersion ?>" alt="Logo" height="31" width="81" class="inline-block">
                     </a>
 
                     <nav class="space-y-3 text-sm">
