@@ -12,33 +12,94 @@ body {
 	font-family: var(--font-sans);
 }
 
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
 .showcase-img {
 	color: transparent;
 	font-size: 0;
 }
 
+.webring-link {
+	color: var(--ring-color);
+}
+
+.webring-card {
+	border-color: var(--ring-color);
+}
+
+.webring-gradient {
+	background: var(--ring-gradient-soft, linear-gradient(to left, var(--ring-color-soft), transparent));
+}
+
+.webring-card--gradient .webring-link {
+	-webkit-background-clip: text;
+	background-clip: text;
+	background-image: var(--ring-gradient);
+	color: transparent;
+}
+
+.webring-nav-link:hover {
+	background-color: var(--ring-color);
+	color: var(--color-taupe-100);
+}
+
+.webring-card--gradient .webring-nav-link:hover {
+	-webkit-background-clip: initial;
+	background-clip: initial;
+	background-image: var(--ring-gradient);
+	color: var(--color-taupe-900);
+}
+
+@media (prefers-color-scheme: dark) {
+	.webring-link {
+		color: #d8d2ce;
+		color: color-mix(in oklab, var(--ring-color) 45%, white);
+	}
+
+	.webring-link:hover {
+		color: #f3f1f1;
+		color: color-mix(in oklab, var(--ring-color) 25%, white);
+	}
+
+	.webring-card--gradient .webring-link,
+	.webring-card--gradient .webring-link:hover {
+		color: transparent;
+	}
+
+	.webring-card {
+		border-color: #d8d2ce;
+		border-color: color-mix(in oklab, var(--ring-color) 45%, white);
+	}
+
+	.webring-gradient {
+		background: linear-gradient(to left, rgba(216, 210, 206, 0.26), transparent);
+		background: var(--ring-gradient-soft, linear-gradient(to left, color-mix(in oklab, var(--ring-color) 26%, transparent), transparent));
+	}
+
+	.webring-nav-link:hover {
+		background-color: #f3f1f1;
+		background-color: color-mix(in oklab, var(--ring-color) 40%, white);
+		color: var(--color-taupe-900);
+	}
+
+	.webring-card--gradient .webring-nav-link:hover {
+		background-image: var(--ring-gradient);
+		color: var(--color-taupe-900);
+	}
+}
+
+.lightbox,
 .lightbox-bg {
 	display: none;
-}
-
-.lightbox {
-	display: none;
-}
-
-#book-gig {
-	display: none;
-}
-
-#book-gig:target {
-	display: block;
-}
-
-#book-gig:target > a {
-	animation: lb-fade 0.14s ease both;
-}
-
-#book-gig:target .book-gig-inner {
-	animation: lb-pop 0.18s cubic-bezier(0.34, 1.3, 0.64, 1) both;
 }
 
 body:has(.lightbox:target) .lightbox-bg {
@@ -110,6 +171,7 @@ html[data-lb-dir="prev"] .lightbox:target .lightbox-inner {
 
 @theme {
 	--animate-fade-up: fade-up 0.4s ease both;
+	--animate-fade-side: fade-side 0.42s ease both;
 }
 
 @keyframes fade-up {
@@ -121,5 +183,17 @@ html[data-lb-dir="prev"] .lightbox:target .lightbox-inner {
 	to {
 		opacity: 1;
 		transform: translateY(0);
+	}
+}
+
+@keyframes fade-side {
+	from {
+		opacity: 0;
+		transform: translateX(-24px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
 	}
 }

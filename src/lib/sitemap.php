@@ -9,6 +9,18 @@
 
 require_once __DIR__ . '/posts.php';
 require_once __DIR__ . '/images.php';
+require_once __DIR__ . '/site.php';
+
+function sitemap_last_modified(mixed $value): ?string
+{
+    if (is_int($value) || (is_string($value) && ctype_digit($value))) {
+        $timestamp = (int) $value;
+    } else {
+        $timestamp = strtotime((string) $value) ?: 0;
+    }
+
+    return $timestamp > 0 ? gmdate('c', $timestamp) : null;
+}
 
 /**
  * Serve XML sitemap and exit.
@@ -17,10 +29,7 @@ function serve_sitemap(): void
 {
     header('Content-Type: application/xml; charset=utf-8');
 
-    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && (int) $_SERVER['SERVER_PORT'] === 443)
-        ? 'https' : 'http';
-    $host = $_SERVER['HTTP_HOST'] ?? ($_SERVER['SERVER_NAME'] ?? 'localhost');
-    $base = $scheme . '://' . $host;
+    $base = SITE_ORIGIN;
 
     $urls = [];
 
@@ -88,19 +97,15 @@ function serve_sitemap(): void
         'images' => $showcaseImages,
     ];
 
-    $webringsTpl = realpath(__DIR__ . '/../templates/webrings.php');
-    $webringsLast = $webringsTpl ? filemtime($webringsTpl) : null;
     $urls[] = [
         'loc' => $base . '/webrings',
-        'lastmod' => $webringsLast ? gmdate('c', $webringsLast) : null,
+        'lastmod' => null,
         'images' => [],
     ];
 
-    $privacyTpl = realpath(__DIR__ . '/../templates/privacy.php');
-    $privacyLast = $privacyTpl ? filemtime($privacyTpl) : null;
     $urls[] = [
         'loc' => $base . '/privacy',
-        'lastmod' => $privacyLast ? gmdate('c', $privacyLast) : null,
+        'lastmod' => null,
         'images' => [],
     ];
 
@@ -111,8 +116,10 @@ function serve_sitemap(): void
         $out .= "  <url>\n";
         $out .= '    <loc>' . htmlspecialchars($u['loc'], ENT_XML1 | ENT_QUOTES, 'UTF-8') . "</loc>\n";
         if (!empty($u['lastmod'])) {
-            $last = is_numeric($u['lastmod']) ? gmdate('c', (int) $u['lastmod']) : (strtotime($u['lastmod']) ? gmdate('c', strtotime($u['lastmod'])) : $u['lastmod']);
-            $out .= '    <lastmod>' . htmlspecialchars($last, ENT_XML1 | ENT_QUOTES, 'UTF-8') . "</lastmod>\n";
+            $last = sitemap_last_modified($u['lastmod']);
+            if ($last !== null) {
+                $out .= '    <lastmod>' . htmlspecialchars($last, ENT_XML1 | ENT_QUOTES, 'UTF-8') . "</lastmod>\n";
+            }
         }
 
         if (!empty($u['images'])) {
@@ -133,6 +140,7 @@ function serve_sitemap(): void
     $out .= "</urlset>\n";
 
     header('Cache-Control: public, max-age=3600');
+    header('X-Content-Type-Options: nosniff');
     echo $out;
     exit;
 }

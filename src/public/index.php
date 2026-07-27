@@ -2,12 +2,18 @@
 require_once __DIR__ . '/../lib/posts.php';
 require_once __DIR__ . '/../lib/images.php';
 require_once __DIR__ . '/../lib/sitemap.php';
+require_once __DIR__ . '/../lib/feed.php';
+require_once __DIR__ . '/../lib/website-carbon.php';
 
 $route = trim($_GET['route'] ?? '/', '/');
 
 
 if ($route === 'sitemap.xml' || $route === 'sitemap') {
     serve_sitemap();
+}
+
+if ($route === 'feed.xml') {
+    serve_feed();
 }
 
 if ($route === 'og-image.png' || $route === 'og-image.svg' || $route === 'og-image') {
