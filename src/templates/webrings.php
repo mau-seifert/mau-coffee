@@ -3,6 +3,8 @@ $title = 'Webrings - Notes by mau';
 $metaTitle = 'Webrings';
 $metaDescription = 'Small doors to neighboring websites.';
 
+require_once __DIR__ . '/../lib/euroring.php';
+
 $webrings = [
     [
         'name' => 'Hotline Webring',
@@ -31,14 +33,25 @@ $webrings = [
         'softGradient' => 'linear-gradient(to left, rgba(160, 120, 225, 0.38), rgba(110, 165, 220, 0.32), rgba(135, 205, 165, 0.28), rgba(225, 205, 105, 0.28), transparent)',
         'status' => 'Pending',
     ],
+    // [
+    //     'name' => 'Webmaster Webring',
+    //     'url' => 'https://webmasterwebring.netlify.app',
+    //     'previous' => 'https://webmasterwebring.netlify.app?mau-previous',
+    //     'next' => 'https://webmasterwebring.netlify.app?mau-next',
+    //     'color' => '#89bbe3',
+    //     'softColor' => 'rgba(137, 187, 227, 0.22)',
+    //     'status' => 'Pending',
+    // ],
     [
-        'name' => 'Webmaster Webring',
-        'url' => 'https://webmasterwebring.netlify.app',
-        'previous' => 'https://webmasterwebring.netlify.app?mau-previous',
-        'next' => 'https://webmasterwebring.netlify.app?mau-next',
-        'color' => '#89bbe3',
-        'softColor' => 'rgba(137, 187, 227, 0.22)',
-        'status' => 'Pending',
+        'name' => 'Euroring',
+        'url' => 'https://euroring.neocities.org/',
+        'previous' => $euroringNavigation['previous']
+            ?? 'https://euroring.neocities.org/',
+        'next' => $euroringNavigation['next']
+            ?? 'https://euroring.neocities.org/',
+        'color' => '#3154a5',
+        'softColor' => 'rgba(49, 84, 165, 0.18)',
+        'status' => $euroringNavigation === null ? 'Pending' : null,
     ],
 ];
 ?>
