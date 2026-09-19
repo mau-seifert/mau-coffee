@@ -1,7 +1,7 @@
 <?php
 $title = 'Showcase - Notes by mau';
 $metaTitle = 'Photos';
-$showcaseDescription = 'A selection of photos taken with my Canon AE-1';
+$showcaseDescription = 'A selection of film photos taken by me.';
 $metaDescription = $showcaseDescription;
 
 $imageNames = get_showcase_image_filenames();
@@ -28,7 +28,6 @@ foreach ($pagedImages as $idx => $name) {
     <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div class="max-w-2xl">
             <h1 class="text-3xl tracking-tight sm:text-4xl">Photos</h1>
-            <p class="mt-3 text-sm text-taupe-900/75 dark:text-taupe-100/75"><?= htmlspecialchars($showcaseDescription, ENT_QUOTES, 'UTF-8') ?></p>
         </div>
     </div>
 </section>

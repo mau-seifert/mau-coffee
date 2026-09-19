@@ -85,6 +85,7 @@ $matchResult = match (true) {
     $route === 'blog'       => ['blog-list', [], 200],
     $route === 'showcase'   => ['showcase', [], 200],
     $route === 'webrings'   => ['webrings', [], 200],
+    $route === 'about'      => ['about', [], 200],
     $route === 'privacy'    => ['privacy', [], 200],
     str_starts_with($route, 'blog/') => ['blog-post', [
         'slug' => explode('/', $route)[1]

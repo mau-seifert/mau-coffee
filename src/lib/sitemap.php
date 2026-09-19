@@ -104,6 +104,12 @@ function serve_sitemap(): void
     ];
 
     $urls[] = [
+        'loc' => $base . '/about',
+        'lastmod' => null,
+        'images' => [],
+    ];
+
+    $urls[] = [
         'loc' => $base . '/privacy',
         'lastmod' => null,
         'images' => [],

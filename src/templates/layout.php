@@ -7,6 +7,7 @@ $isBlog = $currentRoute === 'blog' || str_starts_with($currentRoute, 'blog/');
 $isBlogPost = str_starts_with($currentRoute, 'blog/') && isset($post) && is_array($post);
 $isShowcase = $currentRoute === 'showcase';
 $isWebrings = $currentRoute === 'webrings';
+$isAbout = $currentRoute === 'about';
 $isPrivacy = $currentRoute === 'privacy';
 
 $siteDescription = SITE_DESCRIPTION;
@@ -116,13 +117,14 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
                         <a href="/" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isHome ? 'font-bold' : '' ?>"><?= $isHome ? '• ' : '' ?>Home</a>
                         <a href="/blog" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isBlog ? 'font-bold' : '' ?>"><?= $isBlog ? '• ' : '' ?>Blog</a>
                         <a href="/showcase" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isShowcase ? 'font-bold' : '' ?>"><?= $isShowcase ? '• ' : '' ?>Photos</a>
-                        <a href="/webrings" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isWebrings ? 'font-bold' : '' ?>"><?= $isWebrings ? '• ' : '' ?>Webrings</a>
+                        <a href="/about" class="block underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isAbout ? 'font-bold' : '' ?>"><?= $isAbout ? '• ' : '' ?>About</a>
                     </nav>
 
                     <footer class="border-t border-taupe-900/20 pt-4 text-xs text-taupe-900/70 dark:border-taupe-100/20 dark:text-taupe-100/70">
                         <p class="flex flex-wrap items-center gap-4">
                             <a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a>
                             <a href="https://github.com/mau-seifert/mau-coffee" class="inline-flex items-baseline gap-[0.35rem] text-taupe-900/70 hover:underline dark:text-taupe-100/70" target="_blank" rel="noopener noreferrer" aria-label="Source opens an external website"><span>Source</span><?= $externalLinkIcon ?></a>
+                            <a href="/webrings" class="<?= $isWebrings ? 'underline' : 'hover:underline' ?> underline-offset-4">Webrings</a>
                             <span>
                                 <a class="inline-flex whitespace-nowrap bg-bottom-left bg-no-repeat bg-[linear-gradient(currentColor,currentColor)] bg-size-[0_1px] items-baseline gap-[0.35rem] text-inherit hover:bg-size-[100%_1px]" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= htmlspecialchars($carbonTitle . ' opens an external website', ENT_QUOTES, 'UTF-8') ?>">
                                     <span>Carbon</span>
@@ -144,6 +146,7 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
                     <p class="flex flex-wrap items-center gap-4">
                         <a href="/privacy" class="<?= $isPrivacy ? 'underline' : 'hover:underline' ?> underline-offset-4">Privacy</a>
                         <a href="https://github.com/mau-seifert/mau-coffee" class="inline-flex items-baseline gap-[0.35rem] text-taupe-900/70 hover:underline dark:text-taupe-100/70" target="_blank" rel="noopener noreferrer" aria-label="Source opens an external website"><span>Source</span><?= $externalLinkIcon ?></a>
+                        <a href="/webrings" class="<?= $isWebrings ? 'underline' : 'hover:underline' ?> underline-offset-4">Webrings</a>
                         <span>
                             <a class="inline-flex whitespace-nowrap bg-bottom-left bg-no-repeat bg-[linear-gradient(currentColor,currentColor)] bg-size-[0_1px] items-baseline gap-[0.35rem] text-inherit hover:bg-size-[100%_1px]" href="<?= htmlspecialchars(WEBSITE_CARBON_REPORT_URL, ENT_QUOTES, 'UTF-8') ?>" title="<?= htmlspecialchars($carbonTitle, ENT_QUOTES, 'UTF-8') ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= htmlspecialchars($carbonTitle . ' opens an external website', ENT_QUOTES, 'UTF-8') ?>">
                                 <span>Carbon</span>
