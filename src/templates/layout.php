@@ -102,7 +102,7 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
                 <a href="/" class="underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isHome ? 'font-bold' : '' ?>">Home</a>
                 <a href="/blog" class="underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isBlog ? 'font-bold' : '' ?>">Blog</a>
                 <a href="/showcase" class="underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isShowcase ? 'font-bold' : '' ?>">Photos</a>
-                <a href="/webrings" class="underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isWebrings ? 'font-bold' : '' ?>">Rings</a>
+                <a href="/about" class="underline-offset-4 hover:underline hover:text-taupe-900/80 dark:hover:text-taupe-100/80 <?= $isAbout ? 'font-bold' : '' ?>">About</a>
             </div>
         </nav>
 
