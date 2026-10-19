@@ -1,8 +1,8 @@
 ---
 title: "I don’t have social media and I hope it’s not because I want to be edgy"
 summary: "My complicated relationship with social media, why I kept coming back, and why I eventually realised that my life is better without it."
-created_at: "2026-10-19T00:45:38.000Z"
-updated_at: "2026-10-19T00:45:38.000Z"
+created_at: "2026-10-19T02:45:38.000Z"
+updated_at: "2026-10-19T02:51:20.000Z"
 ---
 
 I've had an on and off relationship with social media for like six years now. Ever since I got a smartphone, I was on pretty much every social media platform I could think of. Facebook, Instagram, Google+, but also more niche ones that I don't even remember anymore. I even had a YouTube channel where I uploaded videos. I'm not even sure my parents knew about all of it, but I loved the spirit of the people and how everyone shared everything, the good and the bad stuff.
@@ -45,4 +45,4 @@ I just know that I don't like how it makes me feel, and that my life is better w
 
 Maybe that's enough of a reason.
 
-Disclaimer: Of course  I have GitHub and also more private social media like WhatsApp. While GitHub is mostly just a tool for me, WhatsApp is a big part of how people communicate here in most of Europe, and I wish I could turn off some of its annoying features.
+_Disclaimer: Of course  I have GitHub and also more private social media like WhatsApp. While GitHub is mostly just a tool for me, WhatsApp is a big part of how people communicate here in most of Europe, and I wish I could turn off some of its annoying features._
