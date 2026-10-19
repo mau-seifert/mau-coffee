@@ -1,8 +1,8 @@
 ---
-title: "It’s 3 a.m. and I’m still feeling pain"
+title: "It’s 3 a.m. and I’m still in pain"
 summary: "Waking up in pain every night has unexpectedly brought back something I had forgotten: how quiet, strange and almost borrowed the middle of the night can feel."
 created_at: "2026-09-17T05:21:08+02:00"
-updated_at: "2026-09-17T05:21:08+02:00"
+updated_at: "2026-10-19T02:44:00+02:00"
 ---
 
 Lately, I’ve been waking up in the middle of the night because of some health issues. My doctor is keeping an eye on it, but so far, it doesn’t seem to be anything serious. The only really annoying part is that the pain wakes me up at night. Funny enough, it happens at almost exactly the same time every night. But that’s beside the point.
