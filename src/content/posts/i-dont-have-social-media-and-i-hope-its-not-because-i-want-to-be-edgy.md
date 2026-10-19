@@ -45,4 +45,4 @@ I just know that I don't like how it makes me feel, and that my life is better w
 
 Maybe that's enough of a reason.
 
-_Disclaimer: Of course  I have GitHub and also more private social media like WhatsApp. While GitHub is mostly just a tool for me, WhatsApp is a big part of how people communicate here in most of Europe, and I wish I could turn off some of its annoying features._
+*Disclaimer: Of course  I have GitHub and also more private social media like WhatsApp. While GitHub is mostly just a tool for me, WhatsApp is a big part of how people communicate here in most of Europe, and I wish I could turn off some of its annoying features.*
