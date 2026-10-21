@@ -3,8 +3,6 @@ $title = 'Webrings - Notes by mau';
 $metaTitle = 'Webrings';
 $metaDescription = 'Small doors to neighboring websites.';
 
-require_once __DIR__ . '/../lib/euroring.php';
-
 $webrings = [
     [
         'name' => 'Hotline Webring',
@@ -23,35 +21,13 @@ $webrings = [
         'softColor' => 'rgba(17, 17, 17, 0.14)',
     ],
     [
-        'name' => 'Bucket Webring',
-        'url' => 'https://webring.bucketfish.me',
-        'previous' => 'https://webring.bucketfish.me/redirect.html?to=prev&name=MAU',
-        'next' => 'https://webring.bucketfish.me/redirect.html?to=next&name=MAU',
-        'color' => '#7651b8',
-        'softColor' => 'rgba(118, 81, 184, 0.18)',
-        'gradient' => 'linear-gradient(90deg, #cdb4ff 0%, #a9cfff 18%, #b6ead7 36%, #d5ffbd 54%, #fff9ae 72%, #ffd6bd 86%, #f0b4d8 100%)',
-        'softGradient' => 'linear-gradient(to left, rgba(160, 120, 225, 0.38), rgba(110, 165, 220, 0.32), rgba(135, 205, 165, 0.28), rgba(225, 205, 105, 0.28), transparent)',
+        'name' => 'The Hacker Webring',
+        'url' => 'https://ring.acab.dev/',
+        'previous' => 'https://ring.acab.dev/prev/cc01a07040',
+        'next' => 'https://ring.acab.dev/next/cc01a07040',
+        'color' => '#805516',
+        'softColor' => 'rgba(197, 139, 40, 0.18)',
         'status' => 'Pending',
-    ],
-    // [
-    //     'name' => 'Webmaster Webring',
-    //     'url' => 'https://webmasterwebring.netlify.app',
-    //     'previous' => 'https://webmasterwebring.netlify.app?mau-previous',
-    //     'next' => 'https://webmasterwebring.netlify.app?mau-next',
-    //     'color' => '#89bbe3',
-    //     'softColor' => 'rgba(137, 187, 227, 0.22)',
-    //     'status' => 'Pending',
-    // ],
-    [
-        'name' => 'Euroring',
-        'url' => 'https://euroring.neocities.org/',
-        'previous' => $euroringNavigation['previous']
-            ?? 'https://euroring.neocities.org/',
-        'next' => $euroringNavigation['next']
-            ?? 'https://euroring.neocities.org/',
-        'color' => '#3154a5',
-        'softColor' => 'rgba(49, 84, 165, 0.18)',
-        'status' => $euroringNavigation === null ? 'Pending' : null,
     ],
 ];
 ?>
