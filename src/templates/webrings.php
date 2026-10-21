@@ -25,8 +25,8 @@ $webrings = [
         'url' => 'https://ring.acab.dev/',
         'previous' => 'https://ring.acab.dev/prev/cc01a07040',
         'next' => 'https://ring.acab.dev/next/cc01a07040',
-        'color' => '#805516',
-        'softColor' => 'rgba(197, 139, 40, 0.18)',
+        'color' => '#03F605',
+        'softColor' => 'rgba(3, 246, 5, 0.18)',
         'status' => 'Pending',
     ],
 ];
