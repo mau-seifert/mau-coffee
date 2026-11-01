@@ -29,9 +29,8 @@ $metaDescription = 'What this website processes, why, and your privacy rights.';
 
         <section aria-labelledby="privacy-rights" class="space-y-1">
             <h2 id="privacy-rights" class="font-semibold">Your rights</h2>
-            <p>Email me to request access, correction, deletion, or restriction under Arts.&nbsp;15&ndash;18 GDPR. Portability does not apply to this legitimate-interest processing. I respond within one month or notify you within that month of a lawful extension and its reasons.</p>
-            <p><strong>Right to object (Art.&nbsp;21 GDPR):</strong> You may object for reasons relating to your particular situation. Processing will stop unless overriding compelling legitimate grounds or legal claims justify continuing.</p>
-            <p>You may also complain to a <a href="https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html" class="underline underline-offset-4" rel="noopener noreferrer">data protection authority</a> (Art.&nbsp;77 GDPR).</p>
+            <p>Email me to request access, correction, deletion, or restriction under Arts.&nbsp;15&ndash;18 GDPR. Portability does not apply to this legitimate-interest processing. I respond within one month or notify you within that month of a lawful extension and its reasons. You may also complain to a <a href="https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html" class="underline underline-offset-4" rel="noopener noreferrer">data protection authority</a> (Art.&nbsp;77 GDPR).</p>
+            <p><strong>Right to object:</strong> (Art.&nbsp;21 GDPR) You may object for reasons relating to your particular situation. Processing will stop unless overriding compelling legitimate grounds or legal claims justify continuing.</p>
         </section>
 
         <section aria-labelledby="privacy-tor" class="space-y-1">
