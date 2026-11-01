@@ -20,6 +20,14 @@ $webrings = [
         'color' => '#111111',
         'softColor' => 'rgba(17, 17, 17, 0.14)',
     ],
+    [
+        'name' => 'Rewild the Web',
+        'url' => 'https://rewildtheweb.org/webring/',
+        'previous' => 'https://webring.rewildtheweb.org/prev?from=mau.coffee',
+        'next' => 'https://webring.rewildtheweb.org/next?from=mau.coffee',
+        'color' => '#418932',
+        'softColor' => 'rgba(65, 137, 50, 0.18)',
+    ],
 ];
 ?>
 
