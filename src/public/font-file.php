@@ -10,7 +10,7 @@ $url = (string) ($_GET['url'] ?? '');
 
 const FONT_CACHE_CONTROL = 'public, max-age=31536000, immutable';
 
-if (!preg_match('#^https://fonts\.gstatic\.com/[a-zA-Z0-9/_.\-]+$#', $url)) {
+if (!preg_match('#\Ahttps://fonts\.gstatic\.com/[a-zA-Z0-9/_.\-]+(?:\?[a-zA-Z0-9_.~%=&+\-]+)?\z#', $url)) {
     http_response_code(400);
     exit;
 }
@@ -32,6 +32,7 @@ $context = stream_context_create([
     'http' => [
         'method'  => 'GET',
         'timeout' => 10,
+        'follow_location' => 0,
     ],
     'ssl' => ['verify_peer' => true, 'verify_peer_name' => true],
 ]);
@@ -50,6 +51,12 @@ $type = match ($ext) {
     'ttf'   => 'font/ttf',
     default => 'application/octet-stream',
 };
+
+foreach ($http_response_header ?? [] as $responseHeader) {
+    if (preg_match('/^Content-Type:\s*(font\/(?:woff2?|ttf)|application\/(?:font-woff|x-font-ttf))(?:\s*;.*)?\s*$/i', $responseHeader, $match)) {
+        $type = strtolower($match[1]);
+    }
+}
 
 if (!is_dir($cacheDir)) mkdir($cacheDir, 0755, true);
 
