@@ -1,93 +1,44 @@
 <?php
 $title = 'Privacy Policy - Notes by mau';
 $metaTitle = 'Privacy Policy';
-$metaDescription = 'How this private website handles hosting, server logs, security records, and your rights.';
+$metaDescription = 'What this website processes, why, and your privacy rights.';
 ?>
 
-<article class="space-y-4">
+<article class="space-y-6">
     <header class="space-y-2">
         <h1 class="text-3xl tracking-tight sm:text-4xl">Privacy Policy</h1>
-
-        <div class="text-sm text-taupe-900/70 dark:text-taupe-100/70">
-            Last updated: July 2026 &bull; GDPR compliant &bull; .onion address available
-        </div>
+        <p class="text-sm text-taupe-900/70 dark:text-taupe-100/70">Last updated: November 1, 2026</p>
     </header>
 
-    <div class="space-y-6 border-t border-taupe-900/20 pt-6 text-taupe-900 dark:border-taupe-100/20 dark:text-taupe-100">
+    <div class="space-y-5 border-t border-taupe-900/20 pt-6 text-sm text-taupe-900/80 dark:border-taupe-100/20 dark:text-taupe-100/80">
+        <section aria-labelledby="privacy-controller" class="space-y-1">
+            <h2 id="privacy-controller" class="font-semibold">Who is responsible?</h2>
+            <p>Maurice S. &middot; <a href="mailto:privacy@mau.coffee" class="underline underline-offset-4">privacy@mau.coffee</a></p>
+        </section>
 
-        <div class="space-y-1">
-            <h2 class="font-semibold">1. Controller</h2>
+        <section aria-labelledby="privacy-hosting" class="space-y-1">
+            <h2 id="privacy-hosting" class="font-semibold">Hosting &amp; server logs</h2>
+            <p>netcup GmbH hosts this site in Nuremberg, Germany, and receives connection data. Access and error logs may contain your IP address, time, URL, HTTP status, response size, browser identifier, and referrer. Processing serves my legitimate interest in operating and securing this site (Art.&nbsp;6(1)(f) GDPR).</p>
+            <p>Logs are deleted after 14 days; records of suspected attacks may be kept until no longer needed for investigation, protection, or legal claims. See <a href="https://www.netcup.com/en/contact/data-privacy" class="underline underline-offset-4" rel="noopener noreferrer">netcup&rsquo;s privacy policy</a> for its own processing.</p>
+        </section>
 
-            <p class="text-sm text-taupe-900/80 dark:text-taupe-100/80">
-                Maurice S.,
-                <a href="mailto:privacy@mau.coffee" class="underline underline-offset-4">
-                    privacy@mau.coffee
-                </a>
-            </p>
+        <section aria-labelledby="privacy-connections" class="space-y-1">
+            <h2 id="privacy-connections" class="font-semibold">Connections &amp; external links</h2>
+            <p>No cookies, analytics, advertising, profiling, or sale of visitor data. Fonts and the carbon badge are fetched server-side without forwarding visitor IP addresses or browser headers. Following external links connects you to those sites.</p>
+        </section>
 
-            <p class="text-sm text-taupe-900/60 dark:text-taupe-100/60">
-                This is a private, non-commercial website. Under German law, no postal address is required in this context.
-            </p>
-        </div>
+        <section aria-labelledby="privacy-rights" class="space-y-1">
+            <h2 id="privacy-rights" class="font-semibold">Your rights</h2>
+            <p>Email me to request access, correction, deletion, or restriction under Arts.&nbsp;15&ndash;18 GDPR. Portability does not apply to this legitimate-interest processing. I respond within one month or notify you within that month of a lawful extension and its reasons.</p>
+            <p><strong>Right to object (Art.&nbsp;21 GDPR):</strong> You may object for reasons relating to your particular situation. Processing will stop unless overriding compelling legitimate grounds or legal claims justify continuing.</p>
+            <p>You may also complain to a <a href="https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html" class="underline underline-offset-4" rel="noopener noreferrer">data protection authority</a> (Art.&nbsp;77 GDPR).</p>
+        </section>
 
-        <div class="space-y-1">
-            <h2 class="font-semibold">2. Hosting &amp; Server Logs</h2>
+        <section aria-labelledby="privacy-tor" class="space-y-1">
+            <h2 id="privacy-tor" class="font-semibold">Prefer Tor?</h2>
+            <p>To reduce exposed network metadata, visit <span class="wrap-anywhere">n4jfne36st2gcnedzdddyolt77qotmawhyat7knqpfcq6guvhskb3byd.onion</span>.</p>
+        </section>
 
-            <p class="text-sm text-taupe-900/80 dark:text-taupe-100/80">
-                This website is hosted on a netcup server located in Nürnberg, Germany. netcup GmbH acts as a data processor under Art.&nbsp;28 GDPR. Details about data processed by netcup and its retention periods are available in
-                <a
-                    href="https://www.netcup.com/en/contact/data-privacy"
-                    class="underline underline-offset-4"
-                    rel="noopener noreferrer">
-                    netcup&rsquo;s privacy policy
-                </a>.
-            </p>
-
-            <p class="text-sm text-taupe-900/80 dark:text-taupe-100/80">
-                The web server records standard connection data, including the IP address, timestamp, requested URL, HTTP status code, browser identifier, and referrer. These logs are used to operate and secure the website, retained for 14 days, and then deleted automatically through log rotation.
-            </p>
-
-            <p class="text-sm text-taupe-900/80 dark:text-taupe-100/80">
-                If someone attempts to access restricted areas, repeatedly submits invalid login details, scans for vulnerabilities, or otherwise attempts unauthorized access, the relevant IP address and request information may be retained for longer. This data is used only to investigate and prevent security incidents, block further access, or establish, exercise, or defend legal claims, and is deleted when no longer required.
-            </p>
-
-            <p class="text-sm text-taupe-900/80 dark:text-taupe-100/80">
-                This website is also available on the Tor network at
-                <span class="wrap-anywhere italic">n4jfne36st2gcnedzdddyolt77qotmawhyat7knqpfcq6guvhskb3byd.onion</span>.
-                Tor can improve privacy by reducing the network metadata exposed while visiting.
-            </p>
-
-            <p class="text-sm text-taupe-900/60 dark:text-taupe-100/60">
-                Legal basis: Art.&nbsp;6(1)(f) GDPR, based on the legitimate interest in operating and securing this website.
-            </p>
-        </div>
-
-        <div class="space-y-1">
-            <h2 class="font-semibold">3. Your Rights</h2>
-
-            <p class="text-sm text-taupe-900/80 dark:text-taupe-100/80">
-                As a data subject, you may request access to (Art.&nbsp;15), rectification of (Art.&nbsp;16), erasure of (Art.&nbsp;17), restriction of processing of (Art.&nbsp;18), or portability of (Art.&nbsp;20) your personal data, and object to its processing (Art.&nbsp;21). Requests can be sent to the e-mail address in section 1 and will be answered within one month (Art.&nbsp;12 GDPR).
-            </p>
-
-            <p class="text-sm text-taupe-900/80 dark:text-taupe-100/80">
-                You also have the right to lodge a complaint with the competent German data protection supervisory authority at any time (Art.&nbsp;77 GDPR):
-                <a
-                    href="https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html"
-                    class="underline underline-offset-4"
-                    rel="noopener noreferrer">
-                    bfdi.bund.de
-                </a>
-            </p>
-        </div>
-
-        <p class="pt-4 text-xs text-taupe-900/60 dark:text-taupe-100/60">
-            Check GitHub for
-            <a
-                href="https://github.com/mau-seifert/mau-coffee/commits/main/src/templates/privacy.php"
-                class="underline underline-offset-4"
-                rel="noopener noreferrer">
-                previous versions of this privacy policy
-            </a>.
-        </p>
+        <p class="text-xs"><a href="https://github.com/mau-seifert/mau-coffee/commits/main/src/templates/privacy.php" class="underline underline-offset-4" rel="noopener noreferrer">Previous versions of this policy</a></p>
     </div>
 </article>
