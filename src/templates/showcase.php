@@ -24,7 +24,7 @@ foreach ($pagedImages as $idx => $name) {
 }
 ?>
 
-<section id="photos" class="relative">
+<section id="photos" class="relative" data-count="<?= $count ?>" data-page="<?= $page ?>" data-per-page="<?= $perPage ?>">
     <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div class="max-w-2xl">
             <h1 class="text-3xl tracking-tight sm:text-4xl">Photos</h1>
@@ -120,60 +120,7 @@ foreach ($pagedImages as $idx => $name) {
         </div>
     <?php endforeach; ?>
 
-    <script>
-        (function() {
-            var count = <?= $count ?>;
-            var page = <?= $page ?>;
-            var perPage = <?= $perPage ?>;
-            var html = document.documentElement;
-
-            try {
-                var params = new URLSearchParams(window.location.search);
-                var initDir = params.get('lbDir');
-                if (initDir === 'next' || initDir === 'prev') html.dataset.lbDir = initDir;
-            } catch (e) {}
-
-            function parseIdxFromHash(hash) {
-                var m = String(hash).match(/^#?lb-(\d+)$/);
-                return m ? parseInt(m[1], 10) : NaN;
-            }
-
-            function go(dir, hash) {
-                html.dataset.lbDir = dir;
-                var idx = parseIdxFromHash(hash);
-                if (!Number.isFinite(idx)) {
-                    location.hash = hash;
-                    return;
-                }
-                var targetPage = Math.floor(idx / perPage) + 1;
-                if (targetPage !== page) {
-                    location.href = '?page=' + targetPage + '#' + hash;
-                } else {
-                    location.hash = hash;
-                }
-            }
-
-            document.addEventListener('click', function(e) {
-                if (e.target.closest('.lightbox-next')) html.dataset.lbDir = 'next';
-                else if (e.target.closest('.lightbox-prev')) html.dataset.lbDir = 'prev';
-                else delete html.dataset.lbDir;
-            }, true);
-
-            document.addEventListener('keydown', function(e) {
-                var h = location.hash;
-                if (!h.startsWith('#lb-')) return;
-                var idx = parseInt(h.slice(4), 10);
-                if (e.key === 'Escape') {
-                    delete html.dataset.lbDir;
-                    location.hash = 'photos';
-                } else if (e.key === 'ArrowRight') {
-                    go('next', 'lb-' + ((idx + 1) % count));
-                } else if (e.key === 'ArrowLeft') {
-                    go('prev', 'lb-' + ((idx - 1 + count) % count));
-                }
-            });
-        }());
-    </script>
+    <script src="/showcase.js" defer></script>
 
 <?php else: ?>
     <p class="mt-8 text-sm text-taupe-900/70 dark:text-taupe-100/70">No images found.</p>
