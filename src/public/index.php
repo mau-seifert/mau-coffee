@@ -4,6 +4,7 @@ require_once __DIR__ . '/../lib/images.php';
 require_once __DIR__ . '/../lib/sitemap.php';
 require_once __DIR__ . '/../lib/feed.php';
 require_once __DIR__ . '/../lib/website-carbon.php';
+require_once __DIR__ . '/../lib/security.php';
 
 $route = trim($_GET['route'] ?? '/', '/');
 
@@ -38,6 +39,7 @@ function render(string $template, array $vars = [], ?int $statusCode = null): vo
     }
 
     extract($vars);
+    $cspNonce = send_html_security_headers();
 
     $content = null;
     if ($template === 'showcase') {

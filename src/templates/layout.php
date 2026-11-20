@@ -89,7 +89,7 @@ $externalLinkIcon = '<span class="whitespace-nowrap opacity-70" aria-hidden="tru
     <link rel="apple-touch-icon" sizes="180x180" href="/manifest/apple-touch-icon.png?v=20260604" />
     <meta name="apple-mobile-web-app-title" content="Mau" />
     <link rel="manifest" href="/manifest/site.webmanifest?v=20260604" />
-    <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "58943e1e68314dd8bcbaee5908f08606"}'></script>
+    <script type='module' nonce='<?= htmlspecialchars($cspNonce, ENT_QUOTES, 'UTF-8') ?>' data-cfasync="false" src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "58943e1e68314dd8bcbaee5908f08606"}'></script>
 </head>
 
 <body class="min-h-screen bg-taupe-100 text-taupe-900 dark:bg-taupe-900 dark:text-taupe-100">

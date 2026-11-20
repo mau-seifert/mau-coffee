@@ -7,7 +7,7 @@ $metaDescription = 'What this website processes, why, and your privacy rights.';
 <article class="space-y-6">
     <header class="space-y-2">
         <h1 class="text-3xl tracking-tight sm:text-4xl">Privacy Policy</h1>
-        <p class="text-sm text-taupe-900/70 dark:text-taupe-100/70">Last updated: November 17, 2026</p>
+        <p class="text-sm text-taupe-900/70 dark:text-taupe-100/70">Last updated: November 20, 2026</p>
     </header>
 
     <div class="space-y-5 border-t border-taupe-900/20 pt-6 text-sm text-taupe-900/80 dark:border-taupe-100/20 dark:text-taupe-100/80">
@@ -21,6 +21,12 @@ $metaDescription = 'What this website processes, why, and your privacy rights.';
             <h2 id="privacy-hosting" class="font-semibold">Hosting &amp; server logs</h2>
             <p>netcup GmbH hosts this site in Nuremberg, Germany, and receives connection data. Access and error logs may contain your IP address, time, URL, HTTP status, response size, browser identifier, and referrer. Processing serves my legitimate interest in operating and securing this site (Art.&nbsp;6(1)(f) GDPR).</p>
             <p>Logs are deleted after 14 days; records of suspected attacks may be kept until no longer needed for investigation, protection, or legal claims. See <a href="https://www.netcup.com/en/contact/data-privacy" class="underline underline-offset-4" rel="noopener noreferrer">netcup&rsquo;s privacy policy</a> for its own processing.</p>
+        </section>
+
+        <section aria-labelledby="privacy-cloudflare" class="space-y-1">
+            <h2 id="privacy-cloudflare" class="font-semibold">Cloudflare proxy &amp; security</h2>
+            <p>I also use Cloudflare, Inc. to deliver this site and help keep attacks and bots away. Your connection passes through Cloudflare, which processes your IP address and request details, such as the URL, time, and browser headers. This serves my legitimate interest in keeping the site available and secure (Art.&nbsp;6(1)(f) GDPR).</p>
+            <p>Security checks may run JavaScript and set cookies such as <code>cf_clearance</code>. These are separate from the cookie-free analytics below. Data may be processed outside the EU/EEA, including in the US. Cloudflare explains more in its <a href="https://www.cloudflare.com/privacypolicy/" class="underline underline-offset-4" rel="noopener noreferrer">privacy policy</a>, including transfer safeguards, and <a href="https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/" class="underline underline-offset-4" rel="noopener noreferrer">security cookie documentation</a>.</p>
         </section>
 
         <section aria-labelledby="privacy-connections" class="space-y-1">
